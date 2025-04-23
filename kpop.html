@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-POP World</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: perspective(1000px) translateY(20px) translateZ(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: perspective(1000px) translateY(0) translateZ(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(192, 132, 252, 0.2),
+                       inset 0 0 32px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-button {
+            background: rgba(168, 85, 247, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 24px 0 rgba(192, 132, 252, 0.2),
+                       inset 0 0 16px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-button:hover {
+            background: rgba(168, 85, 247, 0.9);
+            box-shadow: 0 12px 32px 0 rgba(192, 132, 252, 0.3),
+                       inset 0 0 24px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        body {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(216, 180, 254, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(192, 132, 252, 0.2) 0%, transparent 70%),
+                linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #9333ea 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .music-card {
+            transition: all 0.3s ease;
+        }
+
+        .music-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .album-rotate {
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+        }
+        .news-card {
+            transition: all 0.3s ease;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        .group-card {
+            transition: all 0.3s ease;
+        }
+        .group-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        .highlight {
+            background: linear-gradient(120deg, rgba(192, 132, 252, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12 px-4 animate-fade-in">
+    <nav class="fixed top-0 left-0 right-0 z-50 animate-fade-in">
+        <div class="container mx-auto px-4 py-4" style="max-width: 1152px;">
+            <div class="glass rounded-xl p-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-8">
+                        <span class="text-white font-medium text-xl">World Pop Culture</span>
+                        <div class="hidden md:flex space-x-4">
+                            <a href="us-pop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                                <span class="mr-2">🇺🇸</span>
+                                US Pop
+                            </a>
+                            <a href="uk-pop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                                <span class="mr-2">🇬🇧</span>
+                                UK Pop
+                            </a>
+                            <a href="jpop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                                <span class="mr-2">🇯🇵</span>
+                                J-Pop
+                            </a>
+                            <a href="latin-pop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                                <span class="mr-2">🌎</span>
+                                Latin Pop
+                            </a>
+                            <a href="kpop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center bg-purple-600">
+                                <span class="mr-2">🇰🇷</span>
+                                K-Pop
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" class="glass-button rounded-lg px-6 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                            <span class="mr-2">←</span>
+                            운행일지로 돌아가기
+                        </a>
+                        <!-- 모바일 메뉴 버튼 -->
+                        <button class="md:hidden glass-button rounded-lg p-2" onclick="toggleMobileMenu()">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- 모바일 메뉴 -->
+                <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
+                    <a href="us-pop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                        <span class="mr-2">🇺🇸</span>
+                        US Pop
+                    </a>
+                    <a href="uk-pop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                        <span class="mr-2">🇬🇧</span>
+                        UK Pop
+                    </a>
+                    <a href="jpop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                        <span class="mr-2">🇯🇵</span>
+                        J-Pop
+                    </a>
+                    <a href="latin-pop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                        <span class="mr-2">🌎</span>
+                        Latin Pop
+                    </a>
+                    <a href="kpop.html" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center bg-purple-600">
+                        <span class="mr-2">🇰🇷</span>
+                        K-Pop
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto space-y-12 mt-20">
+        <!-- K-pop 정의 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up">
+            <h2 class="text-3xl font-bold text-white mb-6 section-title animate-fade-in-up delay-200">
+                K-pop이란?
+            </h2>
+            <div class="space-y-4 text-white/90 leading-relaxed animate-fade-in-up delay-300">
+                <p>
+                    <span class="highlight">K-pop(케이팝)</span>은 대한민국의 대중음악을 일컫는 용어로, 1990년대에 서태지와 아이들을 시작으로 본격적으로 발전하기 시작했습니다.
+                </p>
+                <p>
+                    서구의 댄스 음악, 힙합, R&B, 록 등 다양한 장르의 영향을 받아 발전했으며, 화려한 퍼포먼스, 중독성 있는 멜로디, 세련된 프로덕션과 함께 독특한 패션 스타일을 특징으로 합니다.
+                </p>
+                <p>
+                    특히 아이돌 그룹을 중심으로 한 체계적인 트레이닝 시스템, 완성도 높은 퍼포먼스, 글로벌 마케팅 전략을 통해 전 세계적인 문화 현상으로 자리잡았습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- K-pop 역사 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up delay-200">
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">K-pop의 역사</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                <div class="glass news-card rounded-xl p-6 animate-fade-in-up delay-300">
+                    <h3 class="text-xl font-bold text-white mb-3">1세대 (1990년대)</h3>
+                    <p class="text-white/80">서태지와 아이들을 시작으로, H.O.T., 젝스키스, S.E.S., 핑클 등이 활동하며 K-pop의 기틀을 마련했습니다. SM엔터테인먼트의 이수만 대표가 체계적인 아이돌 트레이닝 시스템을 확립했습니다.</p>
+                </div>
+                <div class="glass news-card rounded-xl p-6 animate-fade-in-up delay-400">
+                    <h3 class="text-xl font-bold text-white mb-3">2세대 (2000년대)</h3>
+                    <p class="text-white/80">동방신기, 슈퍼주니어, 빅뱅, 원더걸스, 소녀시대 등이 활동하며 한류의 시작을 이끌었습니다. 특히 BoA와 동방신기는 일본 시장에서 큰 성공을 거두었습니다.</p>
+                </div>
+                <div class="glass news-card rounded-xl p-6 animate-fade-in-up delay-500">
+                    <h3 class="text-xl font-bold text-white mb-3">3세대 (2010년대)</h3>
+                    <p class="text-white/80">EXO, 방탄소년단, 블랙핑크, 트와이스 등이 활동하며 K-pop의 세계화를 이끌었습니다. 소셜 미디어의 발달로 전 세계적인 팬덤이 형성되었습니다.</p>
+                </div>
+                <div class="glass news-card rounded-xl p-6 animate-fade-in-up delay-600">
+                    <h3 class="text-xl font-bold text-white mb-3">4세대 (2020년대)</h3>
+                    <p class="text-white/80">에스파, NewJeans, 르세라핌 등 새로운 세대의 아이돌들이 메타버스, AI 등 새로운 기술을 접목하며 K-pop의 새로운 지평을 열고 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- K-pop 특징 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up delay-300">
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">K-pop의 특징</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div class="glass group-card rounded-xl p-6 animate-fade-in-up delay-400">
+                    <div class="text-3xl mb-4">🎭</div>
+                    <h3 class="text-xl font-bold text-white mb-2">트레이닝 시스템</h3>
+                    <p class="text-white/80">체계적인 연습생 제도를 통해 댄스, 보컬, 랩, 외국어, 매너 등을 종합적으로 교육</p>
+                </div>
+                <div class="glass group-card rounded-xl p-6 animate-fade-in-up delay-500">
+                    <div class="text-3xl mb-4">💫</div>
+                    <h3 class="text-xl font-bold text-white mb-2">퍼포먼스</h3>
+                    <p class="text-white/80">군무와 개인 역량이 조화를 이루는 화려하고 완성도 높은 무대 퍼포먼스</p>
+                </div>
+                <div class="glass group-card rounded-xl p-6 animate-fade-in-up delay-600">
+                    <div class="text-3xl mb-4">🌏</div>
+                    <h3 class="text-xl font-bold text-white mb-2">글로벌 전략</h3>
+                    <p class="text-white/80">다국적 멤버 구성과 다양한 언어 사용으로 글로벌 시장 공략</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 산업 규모 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up delay-400">
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">K-pop의 영향력</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div class="text-center animate-fade-in-up delay-500">
+                    <div class="text-4xl font-bold text-white mb-2">6위</div>
+                    <p class="text-white/80">2019년 세계 음악 시장 순위</p>
+                </div>
+                <div class="text-center animate-fade-in-up delay-600">
+                    <div class="text-4xl font-bold text-white mb-2">44.8%</div>
+                    <p class="text-white/80">2020년 시장 성장률</p>
+                </div>
+                <div class="text-center animate-fade-in-up delay-700">
+                    <div class="text-4xl font-bold text-white mb-2">180개국+</div>
+                    <p class="text-white/80">K-pop 팬 분포 국가</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 주요 엔터테인먼트 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up delay-500">
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">주요 엔터테인먼트</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+                <div class="glass group-card rounded-xl p-6 animate-fade-in-up delay-600">
+                    <h3 class="text-xl font-bold text-white mb-2">SM</h3>
+                    <p class="text-white/80">K-pop의 체계적인 트레이닝 시스템을 확립한 선구자</p>
+                </div>
+                <div class="glass group-card rounded-xl p-6 animate-fade-in-up delay-700">
+                    <h3 class="text-xl font-bold text-white mb-2">YG</h3>
+                    <p class="text-white/80">힙합을 기반으로 한 독특한 음악 색깔</p>
+                </div>
+                <div class="glass group-card rounded-xl p-6 animate-fade-in-up delay-800">
+                    <h3 class="text-xl font-bold text-white mb-2">JYP</h3>
+                    <p class="text-white/80">글로벌 시장을 겨냥한 다국적 그룹 육성</p>
+                </div>
+                <div class="glass group-card rounded-xl p-6 animate-fade-in-up delay-900">
+                    <h3 class="text-xl font-bold text-white mb-2">HYBE</h3>
+                    <p class="text-white/80">BTS의 성공으로 K-pop의 새로운 역사를 쓴 기업</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 스크롤 애니메이션을 위한 Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새마을운동중앙회 정보</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: perspective(1000px) translateY(20px) translateZ(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: perspective(1000px) translateY(0) translateZ(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        }
+
+        .glass-button {
+            background: rgba(0, 87, 168, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 24px 0 rgba(0, 87, 168, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .glass-button:hover {
+            background: rgba(0, 87, 168, 0.9);
+            box-shadow: 0 12px 32px 0 rgba(0, 87, 168, 0.3);
+            transform: translateY(-2px);
+        }
+
+        body {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 87, 168, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 114, 206, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 150, 255, 0.2) 0%, transparent 70%),
+                linear-gradient(135deg, #0057a8 0%, #0072ce 50%, #0096ff 100%);
+            min-height: 100vh;
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12 px-4 animate-fade-in">
+    <nav class="fixed top-0 left-0 right-0 z-50 animate-fade-in">
+        <div class="container mx-auto px-4 py-4" style="max-width: 1152px;">
+            <div class="glass rounded-xl p-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-8">
+                        <span class="text-white font-medium text-xl">새마을운동중앙회</span>
+                        <div class="hidden md:flex space-x-4">
+                            <a href="#intro" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                                <span class="mr-2">📖</span>
+                                소개
+                            </a>
+                            <a href="#business" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                                <span class="mr-2">💼</span>
+                                주요사업
+                            </a>
+                            <a href="#education" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                                <span class="mr-2">🎓</span>
+                                연수원
+                            </a>
+                            <a href="#contact" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                                <span class="mr-2">📞</span>
+                                연락처
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" class="glass-button rounded-lg px-6 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                            <span class="mr-2">←</span>
+                            운행일지로 돌아가기
+                        </a>
+                        <!-- 모바일 메뉴 버튼 -->
+                        <button class="md:hidden glass-button rounded-lg p-2" onclick="toggleMobileMenu()">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- 모바일 메뉴 -->
+                <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
+                    <a href="#intro" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                        <span class="mr-2">📖</span>
+                        소개
+                    </a>
+                    <a href="#business" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                        <span class="mr-2">💼</span>
+                        주요사업
+                    </a>
+                    <a href="#education" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                        <span class="mr-2">🎓</span>
+                        연수원
+                    </a>
+                    <a href="#contact" class="glass-button rounded-lg px-4 py-2 text-white font-medium hover:scale-105 transition-transform flex items-center">
+                        <span class="mr-2">📞</span>
+                        연락처
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto space-y-8 mt-20">
+        <!-- 히어로 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up relative overflow-hidden" style="height: 500px;">
+            <div class="slider-container relative h-full">
+                <div class="slide active">
+                    <img src="images\title.png" 
+                         alt="새마을운동 마을 가꾸기" 
+                         class="w-full h-full object-cover rounded-xl">
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-black bg-opacity-50 rounded-b-xl">
+                        <h2 class="text-2xl font-bold">새마을운동의 시작</h2>
+                        <p>1970년대 마을 가꾸기 운동</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images\title2.png" 
+                         alt="새마을운동 공동작업" 
+                         class="w-full h-full object-cover rounded-xl">
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-black bg-opacity-50 rounded-b-xl">
+                        <h2 class="text-2xl font-bold">공동체 정신</h2>
+                        <p>마을 주민들의 협동 작업</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images\titel3.png" 
+                         alt="새마을운동 현대화" 
+                         class="w-full h-full object-cover rounded-xl">
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-black bg-opacity-50 rounded-b-xl">
+                        <h2 class="text-2xl font-bold">농촌 현대화</h2>
+                        <p>농촌 지역의 발전과 현대화</p>
+                    </div>
+                </div>
+            </div>
+            <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all" onclick="changeSlide(-1)">
+                &#10094;
+            </button>
+            <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all" onclick="changeSlide(1)">
+                &#10095;
+            </button>
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                <button class="w-3 h-3 rounded-full bg-white bg-opacity-50 dot active" onclick="currentSlide(0)"></button>
+                <button class="w-3 h-3 rounded-full bg-white bg-opacity-50 dot" onclick="currentSlide(1)"></button>
+                <button class="w-3 h-3 rounded-full bg-white bg-opacity-50 dot" onclick="currentSlide(2)"></button>
+            </div>
+        </section>
+
+        <!-- 소개 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up">
+            <h2 class="text-3xl font-bold text-white mb-6">새마을운동중앙회 소개</h2>
+            <div class="space-y-4 text-white/90">
+                <p>새마을운동중앙회는 1970년대 대한민국의 농촌 근대화 운동으로 시작된 새마을운동의 중추적 기관입니다. '근면, 자조, 협동'의 정신을 바탕으로 지역사회 발전과 국가 발전에 기여하고 있습니다.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                    <div class="glass p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-2">근면</h3>
+                        <p class="text-white/80">성실하고 부지런한 마음가짐으로 더 나은 미래를 만들어갑니다.</p>
+                    </div>
+                    <div class="glass p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-2">자조</h3>
+                        <p class="text-white/80">스스로의 힘으로 발전을 이루어내는 자립정신을 실천합니다.</p>
+                    </div>
+                    <div class="glass p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-2">협동</h3>
+                        <p class="text-white/80">더불어 사는 공동체 정신으로 함께 성장합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 주요 사업 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up delay-200">
+            <h2 class="text-3xl font-bold text-white mb-6">주요 사업</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">국내사업</h3>
+                    <ul class="list-disc list-inside space-y-2 text-white/80">
+                        <li>지역사회 발전 운동</li>
+                        <li>새마을 지도자 육성</li>
+                        <li>환경보전 운동</li>
+                        <li>문화공동체 운동</li>
+                        <li>녹색생활 실천운동</li>
+                    </ul>
+                </div>
+                <div class="glass p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">국제사업</h3>
+                    <ul class="list-disc list-inside space-y-2 text-white/80">
+                        <li>새마을운동 세계화</li>
+                        <li>국제개발협력사업</li>
+                        <li>개발도상국 새마을운동 전수</li>
+                        <li>국제교류 협력</li>
+                        <li>해외 새마을 지도자 양성</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 새마을연수원 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up delay-300">
+            <h2 class="text-3xl font-bold text-white mb-6">새마을연수원</h2>
+            <div class="space-y-4 text-white/90">
+                <p>새마을연수원은 새마을운동의 정신과 방법을 교육하고 전파하는 전문 교육기관입니다. 국내외 지도자 양성과 새마을운동의 세계화를 위한 다양한 교육 프로그램을 운영하고 있습니다.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <div class="glass p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">교육 프로그램</h3>
+                        <ul class="list-disc list-inside space-y-2 text-white/80">
+                            <li>새마을운동 기본교육</li>
+                            <li>지도자 양성과정</li>
+                            <li>국제교육과정</li>
+                            <li>청년 새마을리더 과정</li>
+                        </ul>
+                    </div>
+                    <div class="glass p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">시설 안내</h3>
+                        <ul class="list-disc list-inside space-y-2 text-white/80">
+                            <li>강의실 및 세미나실</li>
+                            <li>숙박시설</li>
+                            <li>체육시설</li>
+                            <li>새마을운동 전시관</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 연락처 섹션 -->
+        <section class="glass rounded-2xl p-8 animate-fade-in-up delay-400">
+            <h2 class="text-3xl font-bold text-white mb-6">연락처</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <p class="text-white/80">주소: 경기도 성남시 분당구 새마을로 257 (율동200)</p>
+                    <p class="text-white/80">전화: 031-620-2300</p>
+                    <p class="text-white/80">팩스: 031-606-2279</p>
+                </div>
+                <div class="space-y-2">
+                    <p class="text-white/80">사업자등록번호: 763-82-00091</p>
+                    <a href="https://www.saemaul.or.kr" target="_blank" class="text-white/80 hover:text-white">공식 웹사이트 방문하기 →</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(n) {
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.style.opacity = '0';
+            });
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            currentSlideIndex = (n + slides.length) % slides.length;
+            slides[currentSlideIndex].classList.add('active');
+            slides[currentSlideIndex].style.opacity = '1';
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            showSlide(currentSlideIndex + n);
+        }
+
+        function currentSlide(n) {
+            showSlide(n);
+        }
+
+        // 자동 슬라이드
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // 초기 슬라이드 표시
+        showSlide(0);
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html> 

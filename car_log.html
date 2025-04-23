@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+// ... existing code ...
+                    <div class="space-y-2">
+                        <label for="endKm" class="block text-sm font-medium text-gray-700">종료 거리 (km)</label>
+                        <input type="number" id="endKm" name="endKm" step="0.1" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div id="endKmError" class="hidden text-red-600 text-sm mt-1">
+                            종료 거리는 시작 거리보다 작을 수 없습니다.
+                        </div>
+                    </div>
+                    
+                    <div class="col-span-2">
+                        <div id="distanceError" class="hidden text-red-600 text-sm mt-2">
+                            종료 거리는 시작 거리보다 작을 수 없습니다.
+                        </div>
+                    </div>
+// ... existing code ...
+    <script>
+        // 거리 입력 필드 실시간 검증
+        function validateDistance() {
+            const startKm = parseFloat(document.getElementById('startKm').value);
+            const endKm = parseFloat(document.getElementById('endKm').value);
+            const endKmInput = document.getElementById('endKm');
+            const endKmError = document.getElementById('endKmError');
+            const formError = document.getElementById('distanceError');
+            
+            if (startKm && endKm) {
+                if (startKm > endKm) {
+                    endKmInput.classList.add('border-red-500');
+                    endKmError.classList.remove('hidden');
+                    formError.classList.remove('hidden');
+                    return false;
+                } else {
+                    endKmInput.classList.remove('border-red-500');
+                    endKmError.classList.add('hidden');
+                    formError.classList.add('hidden');
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        // 입력 필드에 이벤트 리스너 추가
+        document.getElementById('startKm').addEventListener('input', validateDistance);
+        document.getElementById('endKm').addEventListener('input', validateDistance);
+// ... existing code ...
