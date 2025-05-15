@@ -44,7 +44,7 @@
                     </tr>
                     <tr>
                         <th>전화번호 <span class="required">*</span></th>
-                        <td><input type="tel" name="phone" required pattern="[0-9\-]+" placeholder="숫자와 -만 입력"></td>
+                        <td><input type="tel" name="phone" pattern="[0-9\-]+" placeholder="숫자와 -만 입력" required></td>
                     </tr>
                     <tr>
                         <th>이메일 <span class="required">*</span></th>
@@ -161,7 +161,8 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn-simple">예약하기</button>
+                    <button type="submit"  class="btn btn-secondary">예약하기</button>
+                    <i class="fas fa-list"></i>
                 </div>
             </form>
         </div>

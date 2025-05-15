@@ -48,6 +48,7 @@ try {
                     .then(response => {
                         if (response.status === 'success' && response.data) {
                             const data = response.data;
+                            console.log(data);
                             // null 값은 빈 문자열로 대체
                             function safe(val) { return (val === null || val === undefined) ? '' : val; }
                             document.getElementById('edit_id').value = safe(data.id);
@@ -64,6 +65,7 @@ try {
                                 document.getElementById('edit_email_domain').value = '';
                             }
                             document.getElementById('edit_course_name').value = safe(data.course_name);
+                            document.getElementById('edit_room_type').value = safe(data.room_type);
                             document.getElementById('edit_start_date').value = safe(data.start_date);
                             document.getElementById('edit_end_date').value = safe(data.end_date);
                             document.getElementById('edit_total_people').value = safe(data.total_people);
@@ -267,7 +269,20 @@ try {
                                     <input type="text" class="form-control" name="course_name" id="edit_course_name">
                                 </div>
                             </div>
-                        </div>  
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">강의실</label>       
+              
+                                    <select name="room_type" id="edit_room_type" name="room_type" class="form-select">
+                                    <option value="대강의실">대강의실</option>
+                                    <option value="중강의실">중강의실</option>
+                                    <option value="소강의실">소강의실</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>   
                         <div class="row"> 
                             <div class="col-md-6">
                                 <div class="form-group">
