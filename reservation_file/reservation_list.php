@@ -34,6 +34,85 @@ try {
 ?>
 <!DOCTYPE html>
 <html lang="ko">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 수정 버튼 클릭 시
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                // AJAX로 예약 데이터 가져오기
+                fetch('get_reservation.php?id=' + id)
+                    .then(response => response.json())
+                    .then(response => {
+                        if (response.status === 'success' && response.data) {
+                            const data = response.data;
+                            // null 값은 빈 문자열로 대체
+                            function safe(val) { return (val === null || val === undefined) ? '' : val; }
+                            document.getElementById('edit_id').value = safe(data.id);
+                            document.getElementById('edit_company').value = safe(data.company);
+                            document.getElementById('edit_name').value = safe(data.name);
+                            document.getElementById('edit_phone').value = safe(data.phone);
+                            // 이메일 처리
+                            if (safe(data.email)) {
+                                const [emailId, emailDomain] = safe(data.email).split('@');
+                                document.getElementById('edit_email_id').value = safe(emailId);
+                                document.getElementById('edit_email_domain').value = safe(emailDomain);
+                            } else {
+                                document.getElementById('edit_email_id').value = '';
+                                document.getElementById('edit_email_domain').value = '';
+                            }
+                            document.getElementById('edit_course_name').value = safe(data.course_name);
+                            document.getElementById('edit_start_date').value = safe(data.start_date);
+                            document.getElementById('edit_end_date').value = safe(data.end_date);
+                            document.getElementById('edit_total_people').value = safe(data.total_people);
+                            document.getElementById('edit_student_people').value = safe(data.student_people);
+                            document.getElementById('edit_staff_people').value = safe(data.staff_people);
+                            document.getElementById('edit_inquiry').value = safe(data.inquiry);
+                        } else {
+                            console.error('예약 데이터 형식 오류:', response);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('데이터 가져오기 실패:', error);
+                    });
+            });
+        });
+
+        // 삭제 버튼 클릭 시
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const company = this.dataset.company;
+                const name = this.dataset.name;
+                
+                if (confirm(`정말로 ${company}의 ${name}님의 예약을 삭제하시겠습니까?`)) {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.innerHTML = `<input type="hidden" name="delete_id" value="${id}">`;
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        });
+
+        // 전화번호 입력 제한
+        document.getElementById('edit_phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // 인원 수 자동 계산
+        function updateTotalPeople() {
+            const studentPeople = parseInt(document.getElementById('edit_student_people').value) || 0;
+            const staffPeople = parseInt(document.getElementById('edit_staff_people').value) || 0;
+            document.getElementById('edit_total_people').value = studentPeople + staffPeople;
+        }
+
+        document.getElementById('edit_student_people').addEventListener('input', updateTotalPeople);
+        document.getElementById('edit_staff_people').addEventListener('input', updateTotalPeople);
+    });
+    </script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -182,16 +261,24 @@ try {
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">과정명</label>
                                     <input type="text" class="form-control" name="course_name" id="edit_course_name">
                                 </div>
                             </div>
+                        </div>  
+                        <div class="row"> 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">예약 시작일</label>
                                     <input type="date" class="form-control" name="start_date" id="edit_start_date">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">예약 종료일</label>
+                                    <input type="date" class="form-control" name="end_date" id="edit_end_date">
                                 </div>
                             </div>
                         </div>
@@ -219,7 +306,7 @@ try {
 
                         <div class="form-group">
                             <label class="form-label">기타 문의사항</label>
-                            <textarea class="form-control" name="inquiry" id="edit_inquiry" rows="4"></textarea>
+                            <textarea class="form-control" name="inquiry" id="edit_inquiry" rows="4" value="edit_inquiry"></textarea>
                         </div>
                     </form>
                 </div>
@@ -231,83 +318,6 @@ try {
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 수정 버튼 클릭 시
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const id = this.dataset.id;
-                // AJAX로 예약 데이터 가져오기
-                fetch('get_reservation.php?id=' + id)
-                    .then(response => response.json())
-                    .then(response => {
-                        if (response.status === 'success' && response.data) {
-                            const data = response.data;
-                            // 필수 필드 설정
-                            document.getElementById('edit_id').value = data.id || '';
-                            document.getElementById('edit_company').value = data.company || '';
-                            document.getElementById('edit_name').value = data.name || '';
-                            document.getElementById('edit_phone').value = data.phone || '';
-                            
-                            // 이메일 처리
-                            if (data.email) {
-                                const [emailId, emailDomain] = data.email.split('@');
-                                document.getElementById('edit_email_id').value = emailId || '';
-                                document.getElementById('edit_email_domain').value = emailDomain || '';
-                            }
-                            
-                            // 선택 필드 설정
-                            document.getElementById('edit_course_name').value = data.course_name || '';
-                            document.getElementById('edit_start_date').value = data.start_date || '';
-                            document.getElementById('edit_end_date').value = data.end_date || '';
-                            document.getElementById('edit_total_people').value = data.total_people || '';
-                            document.getElementById('edit_student_people').value = data.student_people || '';
-                            document.getElementById('edit_staff_people').value = data.staff_people || '';
-                            document.getElementById('edit_inquiry').value = data.inquiry || '';
-                        } else {
-                            console.error('예약 데이터 형식 오류:', response);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('데이터 가져오기 실패:', error);
-                    });
-            });
-        });
-
-        // 삭제 버튼 클릭 시
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const id = this.dataset.id;
-                const company = this.dataset.company;
-                const name = this.dataset.name;
-                
-                if (confirm(`정말로 ${company}의 ${name}님의 예약을 삭제하시겠습니까?`)) {
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.innerHTML = `<input type="hidden" name="delete_id" value="${id}">`;
-                    document.body.appendChild(form);
-                    form.submit();
-                }
-            });
-        });
-
-        // 전화번호 입력 제한
-        document.getElementById('edit_phone').addEventListener('input', function(e) {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-
-        // 인원 수 자동 계산
-        function updateTotalPeople() {
-            const studentPeople = parseInt(document.getElementById('edit_student_people').value) || 0;
-            const staffPeople = parseInt(document.getElementById('edit_staff_people').value) || 0;
-            document.getElementById('edit_total_people').value = studentPeople + staffPeople;
-        }
-
-        document.getElementById('edit_student_people').addEventListener('input', updateTotalPeople);
-        document.getElementById('edit_staff_people').addEventListener('input', updateTotalPeople);
-    });
-    </script>
+   
 </body>
 </html> 

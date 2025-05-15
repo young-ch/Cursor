@@ -840,8 +840,8 @@
             'date' => '2024.2'
         ],
         [
-            'url' => 'https://www.youtube.com/watch?v=FkSx2-JbxLI',
-            'title' => '현대차 투자',
+            'url' => 'https://www.youtube.com/watch?v=6tPx2OPT8q0',
+            'title' => '태슬라댄스',
             'date' => '2023.10'
         ],
         [
