@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <title>온라인 명함</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -20,7 +21,7 @@
             left: 0;
             right: 0;
             background-color: rgba(26, 26, 26, 0.95);
-            padding: 1rem 2rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -29,96 +30,82 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         .navbar-brand {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: bold;
             color: white;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .navbar-brand img {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
         }
         .navbar-nav {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        .nav-item {
-            position: relative;
-        }
-        .nav-link {
-            color: #888;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0.5rem 1rem;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .dropdown-content {
             display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: rgba(26, 26, 26, 0.95);
-            min-width: 180px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-            z-index: 1001;
         }
-        .dropdown:hover .dropdown-content {
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background-color: rgba(26, 26, 26, 0.95);
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+            z-index: 999;
+        }
+        .mobile-menu.show {
             display: block;
         }
-        .dropdown-content a {
+        .mobile-menu a {
             color: #888;
-            padding: 12px 16px;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+            padding: 0.75rem 1rem;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .dropdown-content a:hover {
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+        .mobile-menu a:hover {
             background-color: rgba(255,255,255,0.1);
             color: white;
-        }
-        .dropdown .nav-link::after {
-            content: '\f107';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            margin-left: 5px;
         }
         .container {
             max-width: 1200px;
             margin: 80px auto 0;
-            padding: 20px;
+            padding: 1rem;
         }
         .header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
             padding: 20px 0;
+            text-align: center;
         }
         .profile-section {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 50px;
-            margin: 50px 0;
+            gap: 2rem;
+            margin: 2rem 0;
+            text-align: center;
         }
         .profile-image {
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             overflow: hidden;
             border: 5px solid #333;
@@ -129,30 +116,34 @@
             object-fit: cover;
         }
         .profile-info h1 {
-            font-size: 48px;
+            font-size: 2rem;
             margin: 0;
         }
         .profile-info h2 {
             color: #007bff;
-            margin: 10px 0;
+            margin: 0.5rem 0;
+            font-size: 1.25rem;
         }
         .profile-info h3 {
-            font-size: 24px;
-            margin: 10px 0;
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
             color: #888;
         }
         .company-info {
             color: #666;
-            margin: 10px 0;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
         }
         .social-links {
             display: flex;
-            gap: 20px;
-            margin-top: 20px;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         .social-links a {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background-color: #333;
             border-radius: 50%;
             display: flex;
@@ -166,16 +157,17 @@
             background-color: #007bff;
         }
         .videos-section {
-            margin-top: 50px;
+            margin-top: 2rem;
         }
         .videos-section h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
         }
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
         .video-card {
             background-color: #333;
@@ -193,12 +185,11 @@
             border: none;
         }
         .video-info {
-            padding: 15px;
+            padding: 1rem;
         }
         .video-info h3 {
             margin: 0;
-            font-size: 16px;
-            color: #fff;
+            font-size: 1rem;
         }
         .video-info p {
             margin: 5px 0;
@@ -215,13 +206,29 @@
             gap: 1rem;
         }
         .books-section {
-            margin-top: 4rem;
+            margin-top: 3rem;
+        }
+        .books-section .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 1rem 0;
+        }
+        .books-section .section-header i.toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .books-section .section-header.collapsed i.toggle-icon {
+            transform: rotate(-180deg);
         }
         .books-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 1.5rem;
+            display: none;
+            gap: 1rem;
             margin-bottom: 2rem;
+        }
+        .books-grid.show {
+            display: flex;
+            flex-direction: column;
         }
         .book-card {
             background: #2a2a2a;
@@ -229,87 +236,77 @@
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            gap: 1.5rem;
         }
         .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         .book-cover {
             position: relative;
-            width: 100%;
-            padding-top: 140%;
+            width: 100px;
+            height: 150px;
+            flex-shrink: 0;
             overflow: hidden;
             background: linear-gradient(45deg, #2c3e50, #3498db);
+            border-radius: 6px;
         }
         .book-cover img {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .book-card:hover .book-cover img {
-            transform: scale(1.05);
         }
         .book-info {
-            padding: 1rem;
+            flex: 1;
+            min-width: 0;
+            padding: 0;
         }
         .book-title {
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             color: #fff;
             margin-bottom: 0.5rem;
             line-height: 1.4;
-            height: 2.8em;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
         }
         .book-author {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #888;
             margin-bottom: 0.5rem;
         }
         .book-description {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #666;
             margin-bottom: 1rem;
-            height: 3.6em;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+            line-height: 1.5;
         }
         .book-links {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
         .book-links a {
-            padding: 4px 8px;
+            padding: 0.5rem 1rem;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-decoration: none;
             color: #fff;
             background: #007bff;
             transition: background-color 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 4px;
-        }
-        .book-links a i {
-            font-size: 0.9rem;
+            gap: 6px;
         }
         .book-links a:hover {
             background: #0056b3;
         }
         .career-education-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 4rem;
-            margin-bottom: 4rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
         }
         .career-section, .education-section {
             padding: 0;
@@ -317,7 +314,8 @@
         }
         .timeline-item {
             display: flex;
-            gap: 1.5rem;
+            flex-direction: column;
+            gap: 0.5rem;
             margin-bottom: 2rem;
             position: relative;
             padding-left: 1.5rem;
@@ -342,9 +340,9 @@
             background: #007bff;
         }
         .timeline-date {
-            min-width: 120px;
             color: #888;
             font-size: 0.9rem;
+            font-weight: 500;
         }
         .timeline-content {
             flex: 1;
@@ -353,35 +351,46 @@
         .timeline-title {
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
+            color: #fff;
         }
         .timeline-org {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             margin-bottom: 0.5rem;
+            color: #888;
+        }
+        .timeline-org img {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
         }
         .timeline-desc {
             font-size: 0.9rem;
-            line-height: 1.4;
+            line-height: 1.5;
+            color: #666;
         }
         .contacts-section {
-            margin-top: 4rem;
-            padding: 3rem 0;
+            margin-top: 3rem;
+            padding: 2rem 0;
             background: #2a2a2a;
         }
         .contacts-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 1rem;
         }
         .contact-form {
             background: #333;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         .form-group label {
             display: block;
@@ -404,31 +413,40 @@
             border-color: #007bff;
         }
         textarea.form-control {
-            min-height: 150px;
+            min-height: 120px;
             resize: vertical;
         }
         .submit-btn {
+            width: 100%;
             background: #007bff;
             color: #fff;
             border: none;
-            padding: 1rem 2rem;
+            padding: 1rem;
             border-radius: 6px;
             font-size: 1rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         .submit-btn:hover {
             background: #0056b3;
         }
+        .submit-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
         .map-container {
             background: #333;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .map-frame {
             width: 100%;
-            height: 300px;
+            height: 250px;
             border: none;
             border-radius: 8px;
             margin-bottom: 1.5rem;
@@ -442,20 +460,22 @@
             color: #007bff;
         }
         .address-info p {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             color: #888;
             line-height: 1.6;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         .address-info i {
-            width: 20px;
+            min-width: 20px;
             color: #007bff;
-            margin-right: 10px;
         }
         .alert {
             padding: 1rem;
             border-radius: 6px;
             margin-bottom: 1rem;
-            display: none;
+            font-size: 0.9rem;
         }
         .alert-success {
             background: #28a745;
@@ -464,10 +484,6 @@
         .alert-error {
             background: #dc3545;
             color: #fff;
-        }
-        .submit-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
         }
         .navigation-buttons {
             display: flex;
@@ -500,6 +516,282 @@
         }
         .nav-button i {
             font-size: 1.2em;
+        }
+        /* 태블릿 이상 화면에서의 스타일 */
+        @media (min-width: 768px) {
+            .navbar {
+                padding: 1rem 2rem;
+            }
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            .navbar-brand img {
+                width: 40px;
+                height: 40px;
+            }
+            .mobile-menu-btn {
+                display: none;
+            }
+            .navbar-nav {
+                display: flex;
+                gap: 2rem;
+                align-items: center;
+            }
+            .nav-item {
+                position: relative;
+            }
+            .nav-link {
+                color: #888;
+                text-decoration: none;
+                font-size: 1rem;
+                transition: color 0.3s ease;
+                position: relative;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 0.5rem 1rem;
+            }
+            .nav-link:hover {
+                color: white;
+            }
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: rgba(26, 26, 26, 0.95);
+                min-width: 180px;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+                border-radius: 8px;
+                backdrop-filter: blur(10px);
+            }
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+            .profile-section {
+                flex-direction: row;
+                text-align: left;
+                gap: 50px;
+            }
+            .profile-image {
+                width: 300px;
+                height: 300px;
+            }
+            .header {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+            .profile-info h1 {
+                font-size: 48px;
+            }
+            .profile-info h2 {
+                font-size: 1.5rem;
+            }
+            .profile-info h3 {
+                font-size: 24px;
+            }
+            .social-links {
+                justify-content: flex-start;
+            }
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+            }
+            .videos-section h2 {
+                text-align: left;
+                font-size: 24px;
+            }
+            .book-cover {
+                width: 120px;
+                height: 180px;
+            }
+            .book-title {
+                font-size: 1.2rem;
+            }
+            .book-description {
+                font-size: 1rem;
+            }
+            .career-education-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            .timeline-item {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+            .timeline-date {
+                min-width: 120px;
+            }
+            .book-links a {
+                flex: 0 1 auto;
+            }
+            .contacts-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                padding: 0 2rem;
+            }
+            .contact-form, .map-container {
+                padding: 2rem;
+            }
+            .map-frame {
+                height: 300px;
+            }
+            .submit-btn {
+                width: auto;
+                padding: 1rem 2rem;
+            }
+            .books-grid {
+                display: none;
+                gap: 1.5rem;
+            }
+            .books-grid.show {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .book-card {
+                flex-direction: column;
+                padding: 0;
+                gap: 0;
+            }
+            .book-cover {
+                width: 100%;
+                height: auto;
+                padding-top: 140%;
+                position: relative;
+                border-radius: 12px 12px 0 0;
+            }
+            .book-cover img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transition: transform 0.3s ease;
+            }
+            .book-card:hover .book-cover img {
+                transform: scale(1.05);
+            }
+            .book-info {
+                padding: 1rem;
+            }
+            .book-title {
+                font-size: 1rem;
+                height: 2.8em;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+            .book-description {
+                font-size: 0.85rem;
+                height: 3.6em;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+            }
+            .book-links a {
+                flex: 1;
+                justify-content: center;
+                min-width: 120px;
+            }
+        }
+        /* 데스크톱 화면에서의 스타일 */
+        @media (min-width: 1024px) {
+            .books-grid.show {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .book-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            }
+        }
+        .features-section {
+            margin-top: 3rem;
+            padding: 2rem 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .feature-card {
+            background-color: #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background-color: #444;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #007bff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        
+        .feature-icon i {
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .feature-card p {
+            color: #888;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* 예약 버튼 스타일 */
+        .reservation-button {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .reservation-button a {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .reservation-button a:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .reservation-button a i {
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -662,37 +954,42 @@
             <img src="<?php echo $profile['image']; ?>" alt="Profile">
             <?php echo $profile['name']; ?>
         </a>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="navbar-nav">
-            <div class="dropdown">
+            <div class="nav-item dropdown">
                 <a href="#" class="nav-link">
-                    <i class="fas fa-user"></i>
-                    About Me
+                    <i class="fas fa-folder"></i>
+                    포트폴리오
                 </a>
                 <div class="dropdown-content">
-                    <a href="#intro">
-                        <i class="fas fa-user-circle"></i>
-                        소개
-                    </a>
-                    <a href="#career">
-                        <i class="fas fa-history"></i>
-                        약력
-                    </a>
-                    <a href="#projects">
-                        <i class="fas fa-project-diagram"></i>
-                        프로젝트
-                    </a>
-                    <a href="#contact">
-                        <i class="fas fa-envelope"></i>
-                        연락
-                    </a>
+                    <a href="#"><i class="fas fa-code"></i> 웹 개발</a>
+                    <a href="#"><i class="fas fa-mobile-alt"></i> 앱 개발</a>
+                    <a href="#"><i class="fas fa-paint-brush"></i> 디자인</a>
                 </div>
             </div>
-            <a href="#videos" class="nav-link">
-                <i class="fas fa-video"></i>
-                Videos
-            </a>
+            <div class="nav-item">
+                <a href="todo.php" class="nav-link">
+                    <i class="fas fa-tasks"></i>
+                    To Do List
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    연락하기
+                </a>
+            </div>
         </div>
     </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#profile">프로필</a>
+        <a href="#videos">영상</a>
+        <a href="todo.php">To Do List</a>
+        <a href="survey.php">설문지</a>
+    </div>
 
     <div class="container">
         <div class="navigation-buttons">
@@ -711,6 +1008,14 @@
             <a href="apple_landing.php" class="nav-button">
                 <i class="fas fa-apple-alt"></i>
                 프리미엄 사과
+            </a>
+            <a href="todo.php" class="nav-button">
+                <i class="fas fa-tasks"></i>
+                To Do List
+            </a>
+            <a href="survey.php" class="nav-button">
+                <i class="fas fa-tasks"></i>
+                설문지
             </a>
         </div>
         <main>
@@ -758,6 +1063,10 @@
                     <i class="fas fa-book"></i>
                     Books
                 </h2>
+                <div class="books-section section-header">
+                    <span>Books</span>
+                    <i class="fas fa-angle-down toggle-icon"></i>
+                </div>
                 <div class="books-grid">
                     <?php foreach ($books as $book): ?>
                         <div class="book-card">
@@ -887,6 +1196,48 @@
                     </div>
                 </div>
             </section>
+
+            <div class="features-section">
+                <h2 class="section-title">기능</h2>
+                <div class="features-grid">
+                    <a href="todo.php" class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3>To Do List</h3>
+                        <p>할 일을 관리하고 체크하세요</p>
+                    </a>
+                    <a href="survey.php" class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>설문지</h3>
+                        <p>고객 만족도 설문에 참여하세요</p>
+                    </a>
+                    <a href="converter.php" class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-powerpoint"></i>
+                        </div>
+                        <h3>변환</h3>
+                        <p>HTML을 PPT로 변환하세요</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 관리자 링크 -->
+            <div class="text-center mt-8 mb-4">
+                <a href="admin.php" class="text-gray-400 hover:text-gray-600 text-sm transition-colors">
+                    <i class="fas fa-lock"></i> 관리자
+                </a>
+            </div>
+
+            <!-- 예약 버튼 추가 -->
+            <div class="reservation-button">
+                <a href="reservation_file/reservation.php">
+                    <i class="fas fa-calendar-check"></i>
+                    온라인 예약하기
+                </a>
+            </div>
         </main>
     </div>
 
@@ -934,6 +1285,25 @@
             // 버튼 상태 복구
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 메시지 보내기';
+        });
+    });
+
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.toggle('show');
+    }
+
+    // Books 섹션 토글 기능
+    document.addEventListener('DOMContentLoaded', function() {
+        const booksHeader = document.querySelector('.books-section .section-header');
+        const booksGrid = document.querySelector('.books-grid');
+        
+        // 초기 상태 설정 (기본적으로 펼쳐진 상태)
+        booksGrid.classList.add('show');
+        
+        booksHeader.addEventListener('click', function() {
+            booksGrid.classList.toggle('show');
+            this.classList.toggle('collapsed');
         });
     });
     </script>

@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프리미엄 사과 | 자연의 달콤함</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,11 +18,25 @@
                         'apple-red': '#DC2626',
                         'apple-dark': '#991B1B',
                         'apple-light': '#FEE2E2',
-                    }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
                 }
             }
         }
     </script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .mobile-menu {
+            display: none;
+        }
+        .mobile-menu.show {
+            display: block;
+        }
+    </style>
 </head>
 <body class="bg-white">
     <?php
@@ -65,20 +84,7 @@
     ?>
 
     <!-- 네비게이션 -->
-    <nav class="bg-apple-red">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-white text-2xl font-bold">
-                    Premium Apple
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#products" class="text-white hover:text-apple-light transition">제품</a>
-                    <a href="#features" class="text-white hover:text-apple-light transition">특징</a>
-                    <a href="#contact" class="text-white hover:text-apple-light transition">문의</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include 'nav.php'; ?>
 
     <!-- 히어로 섹션 -->
     <div class="relative bg-apple-red py-16">
@@ -86,13 +92,13 @@
             <div class="bg-gradient-to-r from-apple-dark to-apple-red opacity-50 absolute inset-0"></div>
         </div>
         <div class="container mx-auto px-6 relative z-10">
-            <div class="flex items-center justify-between">
-                <div class="w-1/2 pr-8">
-                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+            <div class="flex flex-col md:flex-row items-center md:justify-between">
+                <div class="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0 md:pr-8">
+                    <h1 class="text-3xl md:text-5xl font-bold text-white mb-6">
                         자연이 선물한<br>최고의 달콤함
                     </h1>
-                    <p class="text-xl text-apple-light mb-8">
-                        청정 자연에서 정성껏 키운 프리미엄 사과를 소개합니다.<br>
+                    <p class="text-lg md:text-xl text-apple-light mb-8">
+                        청정 자연에서 정성껏 키운 프리미엄 사과를 소개합니다.<br class="hidden md:block">
                         최상의 품질과 맛을 보장하는 프리미엄 과일 브랜드입니다.
                     </p>
                     <a href="#products" 
@@ -100,9 +106,9 @@
                         제품 보기
                     </a>
                 </div>
-                <div class="w-1/2 flex justify-center">
-                    <div class="w-[300px] h-[300px] rounded-full overflow-hidden shadow-2xl border-4 border-white">
-                        <img src="images/premium_apple.jpg" 
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="w-[280px] h-[280px] md:w-[400px] md:h-[400px] rounded-full overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="images/apple.png" 
                              alt="프리미엄 사과" 
                              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300">
                     </div>
@@ -112,21 +118,21 @@
     </div>
 
     <!-- 제품 섹션 -->
-    <section id="products" class="py-20 bg-white">
+    <section id="products" class="py-16 md:py-20 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">프리미엄 사과</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 md:mb-16">프리미엄 사과</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                 <?php foreach ($products as $product): ?>
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition">
                     <img src="<?php echo $product['image']; ?>" 
                          alt="<?php echo $product['name']; ?>" 
-                         class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2"><?php echo $product['name']; ?></h3>
+                         class="w-full h-48 md:h-64 object-cover">
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2"><?php echo $product['name']; ?></h3>
                         <p class="text-gray-600 mb-4"><?php echo $product['description']; ?></p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-apple-red font-bold text-xl">￦<?php echo $product['price']; ?></span>
-                            <span class="text-gray-500"><?php echo $product['weight']; ?></span>
+                        <div class="flex flex-wrap justify-between items-center">
+                            <span class="text-lg md:text-xl font-bold text-apple-red">￦<?php echo $product['price']; ?></span>
+                            <span class="text-sm md:text-base text-gray-500"><?php echo $product['weight']; ?></span>
                         </div>
                     </div>
                 </div>
@@ -136,14 +142,14 @@
     </section>
 
     <!-- 특징 섹션 -->
-    <section id="features" class="py-20 bg-apple-light">
+    <section id="features" class="py-16 md:py-20 bg-apple-light">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">특별한 가치</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 md:mb-16">특별한 가치</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                 <?php foreach ($features as $feature): ?>
-                <div class="text-center">
-                    <div class="text-5xl mb-4"><?php echo $feature['icon']; ?></div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2"><?php echo $feature['title']; ?></h3>
+                <div class="text-center p-4">
+                    <div class="text-4xl md:text-5xl mb-4"><?php echo $feature['icon']; ?></div>
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2"><?php echo $feature['title']; ?></h3>
                     <p class="text-gray-600"><?php echo $feature['description']; ?></p>
                 </div>
                 <?php endforeach; ?>
@@ -152,11 +158,11 @@
     </section>
 
     <!-- 문의 섹션 -->
-    <section id="contact" class="py-20 bg-white">
+    <section id="contact" class="py-16 md:py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="max-w-2xl mx-auto">
-                <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">문의하기</h2>
-                <form class="space-y-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 md:mb-16">문의하기</h2>
+                <form class="space-y-4 md:space-y-6">
                     <div>
                         <label class="block text-gray-700 mb-2" for="name">이름</label>
                         <input type="text" id="name" name="name" 
@@ -183,25 +189,50 @@
 
     <!-- 푸터 -->
     <footer class="bg-gray-900 text-white py-12">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Premium Apple</h3>
-                    <p class="text-gray-400">최고의 품질과 서비스로<br>고객님께 만족을 드립니다.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-4 flex items-center justify-center md:justify-start">
+                        <span class="material-icons mr-2">agriculture</span>
+                        맛있는 사과
+                    </h3>
+                    <p class="text-gray-400">
+                        자연과 함께 키워낸<br>
+                        최고급 프리미엄 사과를 제공합니다.
+                    </p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">연락처</h3>
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-4 flex items-center justify-center md:justify-start">
+                        <span class="material-icons mr-2">support_agent</span>
+                        연락처
+                    </h3>
                     <p class="text-gray-400">
                         전화: 1544-0000<br>
-                        이메일: contact@premium-apple.com
+                        이메일: contact@premium-apple.com<br>
+                        주소: 경북 청송군 청송읍 과수원길 123
                     </p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">운영시간</h3>
-                    <p class="text-gray-400">
-                        평일: 09:00 - 18:00<br>
-                        주말 및 공휴일 휴무
-                    </p>
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-4 flex items-center justify-center md:justify-start">
+                        <span class="material-icons mr-2">share</span>
+                        팔로우
+                    </h3>
+                    <div class="flex justify-center md:justify-start space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <span class="material-icons">facebook</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <span class="material-icons">photo_camera</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <span class="material-icons">smart_display</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <span class="material-icons">flutter_dash</span>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">

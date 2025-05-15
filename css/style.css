@@ -1,0 +1,555 @@
+/* 전체 스타일 */
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* 섹션 스타일 */
+.section {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.section h2 {
+    color: #1a1a1a;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* 섹션 저장 버튼 */
+.section-save-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    padding: 6px 15px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.section-save-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* 폼 테이블 스타일 */
+.form-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.form-table th,
+.form-table td {
+    padding: 12px 0;
+    text-align: left;
+    vertical-align: top;
+}
+
+.form-table th {
+    width: 140px;
+    color: #1a1a1a;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* 강의실 선택 버튼 그룹 */
+.room-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.room-button {
+    padding: 8px 16px;
+    background-color: #f3f4f6;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    color: #333;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.room-button:hover {
+    background-color: #e5e7eb;
+}
+
+.room-button.active {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+    padding: 10px 12px;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #333;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+/* 텍스트 입력 필드 */
+input[type="text"] {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* 이메일 입력 필드 */
+input[type="email"] {
+    width: 100%;
+    max-width: 250px;
+}
+
+/* 전화번호 입력 필드 */
+input[type="tel"] {
+    width: 100%;
+    max-width: 200px;
+}
+
+/* 날짜 입력 필드 */
+input[type="date"] {
+    width: 100%;
+    max-width: 180px;
+}
+
+/* 시간 선택 필드 스타일 */
+.time-select {
+    width: 120px;
+    padding: 8px 12px;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #333;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px;
+    padding-right: 28px;
+}
+
+.time-select:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.time-separator {
+    margin: 0 6px;
+    color: #666;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* 시간 선택 컨테이너 */
+.time-select-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 반응형 디자인에서의 시간 선택 필드 */
+@media (max-width: 640px) {
+    .time-select {
+        width: 100px;
+        font-size: 0.85rem;
+        padding: 6px 10px;
+        padding-right: 24px;
+    }
+    
+    .time-separator {
+        margin: 0 4px;
+    }
+}
+
+/* 숫자 입력 필드 */
+input[type="number"] {
+    width: 100%;
+    max-width: 120px;
+}
+
+/* 셀렉트 박스 */
+select {
+    width: 100%;
+    max-width: 300px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+/* 텍스트 영역 */
+textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* 폼 테이블 내 입력 필드 컨테이너 */
+.form-table td {
+    position: relative;
+}
+
+/* 반응형 디자인에서의 입력 필드 크기 조정 */
+@media (max-width: 640px) {
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="date"],
+    input[type="number"],
+    select {
+        max-width: 100%;
+    }
+    
+    textarea {
+        min-height: 100px;
+    }
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+input[type="text"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="email"]::placeholder {
+    color: #999;
+}
+
+/* 버튼 스타일 */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    justify-content: center;
+}
+
+.btn-submit,
+.btn-reset {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.btn-submit {
+    background-color: #2563eb;
+    color: white;
+}
+
+.btn-reset {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.btn-submit:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-reset:hover {
+    background-color: #e5e7eb;
+}
+
+/* 유효성 검사 스타일 */
+.error {
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+input:invalid,
+select:invalid,
+textarea:invalid {
+    border-color: #dc2626;
+}
+
+/* 로딩 스타일 */
+.loading {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #e5e7eb;
+    border-top: 2px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 필수 입력 필드 표시 */
+label[for*="required"]::after {
+    content: '*';
+    color: #dc2626;
+    margin-left: 4px;
+}
+
+/* 날짜 선택기 스타일 */
+.ui-datepicker {
+    background: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background: none;
+    border: none;
+    padding: 8px 0;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.ui-datepicker th {
+    color: #666;
+    font-weight: 500;
+    padding: 8px;
+}
+
+.ui-datepicker td {
+    padding: 2px;
+}
+
+.ui-datepicker td span,
+.ui-datepicker td a {
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+}
+
+.ui-datepicker td a:hover {
+    background-color: #f3f4f6;
+}
+
+.ui-datepicker .ui-state-active {
+    background-color: #2563eb !important;
+    color: white !important;
+}
+
+/* 완료 페이지 스타일 */
+.complete-message {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.complete-message h1 {
+    color: #1a1a1a;
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+}
+
+.complete-message p {
+    color: #4b5563;
+    margin: 12px 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.complete-message .button-group {
+    margin-top: 32px;
+}
+
+.complete-message .button-group a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.complete-message .btn-submit {
+    background-color: #2563eb;
+    color: white;
+}
+
+.complete-message .btn-reset {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.complete-message .btn-submit:hover {
+    background-color: #1d4ed8;
+}
+
+.complete-message .btn-reset:hover {
+    background-color: #e5e7eb;
+}
+
+/* 이메일 도메인 선택 */
+select.email-domain {
+    width: 100%;
+    max-width: 150px;
+    margin-left: 8px;
+}
+
+/* 이메일 입력 그룹 */
+.email-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.email-group span {
+    margin: 0 4px;
+    color: #666;
+}
+
+/* 기존 time-group 스타일 제거 */
+.time-group {
+    display: none;
+}
+
+/* 예약 확인 섹션 */
+.reservation-summary {
+    background-color: #f8fafc;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.reservation-summary h3 {
+    color: #1a1a1a;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.summary-item {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.summary-label {
+    width: 100px;
+    color: #666;
+}
+
+.summary-value {
+    flex: 1;
+    color: #1a1a1a;
+}
+
+/* 최종 제출 버튼 */
+.final-submit-btn {
+    display: block;
+    width: 200px;
+    margin: 30px auto;
+    padding: 12px 24px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.final-submit-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+    
+    .section-save-btn {
+        position: static;
+        margin-top: 15px;
+        width: 100%;
+    }
+    
+    .room-button-group {
+        gap: 6px;
+    }
+    
+    .room-button {
+        flex: 1 1 calc(50% - 6px);
+        text-align: center;
+    }
+    
+    .form-table th,
+    .form-table td {
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+    }
+    
+    .form-table th {
+        padding-bottom: 4px;
+    }
+} 
