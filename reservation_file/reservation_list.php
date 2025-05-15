@@ -40,11 +40,11 @@ try {
     <title>예약 관리</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <link href="/reservation_file/styles.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div class="reservation-header fade-in">
+        <div class="reservation-header">
             <h1>예약 관리</h1>
             <p>예약 현황을 확인하고 관리하세요</p>
         </div>
@@ -57,22 +57,22 @@ try {
         </div>
         
         <?php if (isset($_GET['message']) && $_GET['message'] == 'deleted'): ?>
-            <div class="alert alert-success fade-in">
+            <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i>
                 예약이 삭제되었습니다.
             </div>
         <?php endif; ?>
         
         <?php if (isset($error)): ?>
-            <div class="alert alert-error fade-in">
+            <div class="alert alert-error">
                 <i class="fas fa-exclamation-circle"></i>
                 <?php echo $error; ?>
             </div>
         <?php endif; ?>
 
-        <div class="reservation-table fade-in">
+        <div class="reservation-table">
             <div class="table-responsive">
-                <table class="table simple-table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -81,12 +81,9 @@ try {
                             <th>전화번호</th>
                             <th>이메일</th>
                             <th>과정명</th>
-                            <th>예약 시작일</th>
-                            <th>예약 종료일</th>
+                            <th>예약 기간</th>
                             <th>총 인원</th>
                             <th>강의실</th>
-                            <th>숙박</th>
-                            <th>식사</th>
                             <th>관리</th>
                         </tr>
                     </thead>
@@ -99,12 +96,19 @@ try {
                             <td><?php echo htmlspecialchars($reservation['phone']); ?></td>
                             <td><?php echo htmlspecialchars($reservation['email']); ?></td>
                             <td><?php echo htmlspecialchars($reservation['course_name']); ?></td>
-                            <td><?php echo htmlspecialchars($reservation['start_date']); ?></td>
-                            <td><?php echo htmlspecialchars($reservation['end_date']); ?></td>
+                            <td>
+                                <?php 
+                                echo htmlspecialchars($reservation['start_date']) . ' ~ ' . 
+                                     htmlspecialchars($reservation['end_date']); 
+                                ?>
+                            </td>
                             <td><?php echo htmlspecialchars($reservation['total_people']); ?></td>
-                            <td><?php echo htmlspecialchars($reservation['room_type']) . ' x' . htmlspecialchars($reservation['room_count']) . ' (' . htmlspecialchars($reservation['start_time']) . '~' . htmlspecialchars($reservation['end_time']) . ')'; ?></td>
-                            <td><?php echo htmlspecialchars($reservation['accommodation_type']) . ' x' . htmlspecialchars($reservation['accommodation_room_count']) . ' (' . htmlspecialchars($reservation['accommodation_start']) . '~' . htmlspecialchars($reservation['accommodation_end']) . ')'; ?></td>
-                            <td><?php echo htmlspecialchars($reservation['meal_type']) . ' x' . htmlspecialchars($reservation['meal_count']) . ' (' . htmlspecialchars($reservation['meal_start']) . '~' . htmlspecialchars($reservation['meal_end']) . ')'; ?></td>
+                            <td>
+                                <?php 
+                                echo htmlspecialchars($reservation['room_type']) . ' x' . 
+                                     htmlspecialchars($reservation['room_count']); 
+                                ?>
+                            </td>
                             <td>
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-sm btn-primary edit-btn" 
@@ -146,13 +150,13 @@ try {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">회사명 <span class="text-danger">*</span></label>
+                                    <label class="form-label">회사명 <span class="required">*</span></label>
                                     <input type="text" class="form-control" name="company" id="edit_company" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">담당자 <span class="text-danger">*</span></label>
+                                    <label class="form-label">담당자 <span class="required">*</span></label>
                                     <input type="text" class="form-control" name="name" id="edit_name" required>
                                 </div>
                             </div>
@@ -161,13 +165,13 @@ try {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">전화번호 <span class="text-danger">*</span></label>
+                                    <label class="form-label">전화번호 <span class="required">*</span></label>
                                     <input type="tel" class="form-control" name="phone" id="edit_phone" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">이메일 <span class="text-danger">*</span></label>
+                                    <label class="form-label">이메일 <span class="required">*</span></label>
                                     <div class="d-flex gap-2">
                                         <input type="text" name="email_id" id="edit_email_id" class="form-control" required>
                                         <span class="align-self-center">@</span>
