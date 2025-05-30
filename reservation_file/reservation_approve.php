@@ -80,7 +80,8 @@ try {
         'contract_amount' => str_replace(',', '', $_POST['contract_amount']),
         'balance_amount' => str_replace(',', '', $_POST['balance_amount']),
         
-        'status' => 'pending'
+        'status' => 'approved',
+        'approved_at' => date('Y-m-d H:i:s')
     ];
 
     // SQL 쿼리 준비
