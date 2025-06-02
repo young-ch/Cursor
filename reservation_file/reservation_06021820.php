@@ -26,50 +26,6 @@
 </style>
 
         <div class="reservation-form">
-		<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
-			<script>
-				function zipsearch() {
-					new daum.Postcode({
-						oncomplete: function(data) {
-							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-			
-							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-							var fullAddr = ''; // 최종 주소 변수
-							var extraAddr = ''; // 조합형 주소 변수
-			
-							// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-								fullAddr = data.roadAddress;
-			
-							} else { // 사용자가 지번 주소를 선택했을 경우(J)
-								fullAddr = data.jibunAddress;
-							}
-			
-							// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-							if(data.userSelectedType === 'R'){
-								//법정동명이 있을 경우 추가한다.
-								if(data.bname !== ''){
-									extraAddr += data.bname;
-								}
-								// 건물명이 있을 경우 추가한다.
-								if(data.buildingName !== ''){
-									extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-								}
-								// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-								fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-							}
-			
-							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							//document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-							document.getElementById('address').value = fullAddr;
-			
-							// 커서를 상세주소 필드로 이동한다.
-							//document.getElementById('addr_detail').focus();
-						}
-					}).open();
-				}
-			</script>
             <form name="reservation_form" action="reservation_complete.php" method="POST" enctype="multipart/form-data">
                
                 <table class="form-table">
@@ -81,9 +37,9 @@
                     </tr>
                     <tr>
                         <th>전화 <span class="required">*</span></th>
-                        <td><input type="tel" name="phone" id="phone" required placeholder="000-0000-0000" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" onkeyup="formatPNumber(this)"></td>
+                        <td><input type="tel" name="phone" required></td>
                         <th>주소 <span class="required">*</span></th>
-                        <td><input type="text" id="address" name="address" required onclick="javascript:zipsearch();return false;"></td>
+                        <td><input type="text" name="address" required></td>
                     </tr>
                     <tr>    
                         <th>증빙종류</th>
@@ -139,12 +95,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>연락 <br>담당자 <span class="required">*</span></th>
+                        <th>전자세금계산서 <br>담당자 <span class="required">*</span></th>
                         <td colspan="3">
                             <div class="tax-manager-group">
                                 <div class="name-phone-row">
                                     <input type="text" name="tax_manager_name" placeholder="성명" required>
-                                    <input type="tel" name="tax_manager_phone" placeholder="000-0000-0000" required pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" onkeyup="formatPNumber(this)">
+                                    <input type="text" name="tax_manager_phone" placeholder="휴대폰" required>
                                 </div>
                                 <div class="email-row">
                                     <div class="email-group">
@@ -171,16 +127,16 @@
                         <th>사용인원</th>
                         <td>
                             <div class="input-group">
-                                <input type="number" name="total_people" id="total_people">
+                                <input type="number" name="total_people" id="total_people" >
                                 <span>명</span>
                             </div>
                         </td>
                         <th>예약 기간</th>
                         <td colspan="2">
                             <div class="input-group">
-                                <input type="date" name="start_date" id="start_date" max="2030-12-31" min="">
+                                <input type="date" name="start_date" id="start_date">
                                 <span>~</span>
-                                <input type="date" name="end_date" id="end_date" max="2030-12-31" min="">
+                                <input type="date" name="end_date" id="end_date">
                             </div>
                         </td>
                     </tr>
@@ -196,9 +152,6 @@
                                         <button class="nav-link" id="classroom-tab" data-bs-toggle="tab" data-bs-target="#classroom" type="button" role="tab">강의실</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="classroom2-tab" data-bs-toggle="tab" data-bs-target="#classroom2" type="button" role="tab">강의실2</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="facility-tab" data-bs-toggle="tab" data-bs-target="#facility" type="button" role="tab">부대시설</button>
                                     </li>
                                 </ul>
@@ -210,7 +163,7 @@
                                                 <tr>
                                                     <th>시설명</th>
                                                     <th>단가</th>
-                                                    <th>실/인원</th>
+                                                    <th>실</th>
                                                     <th>금액</th>
                                                     <th>비고</th>
                                                 </tr>
@@ -220,28 +173,28 @@
                                                     <td>2인실</td>
                                                     <td><input type="text" class="usage-amount" value="50,000" readonly></td>
                                                     <td><input type="number" class="usage-people" name="room_no_2" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
-                                                    <td><input type="text" class="total-amount" name="room_no_2_1" value="0" readonly></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="room_no_2t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>4인실</td>
                                                     <td><input type="text" class="usage-amount" value="80,000" readonly></td>
                                                     <td><input type="number" class="usage-people" name="room_no_4" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
-                                                    <td><input type="text" class="total-amount" name="room_no_4_1" value="0" readonly></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="room_no_4t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>6인실</td>
                                                     <td><input type="text" class="usage-amount" value="100,000" readonly></td>
                                                     <td><input type="number" class="usage-people" name="room_no_6" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
-                                                    <td><input type="text" class="total-amount" name="room_no_6_1" value="0" readonly></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="room_no_6t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>8인실</td>
                                                     <td><input type="text" class="usage-amount" value="120,000" readonly></td>
                                                     <td><input type="number" class="usage-people" name="room_no_8" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
-                                                    <td><input type="text" class="total-amount" name="room_no_8_1" value="0" readonly></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="room_no_8t" placeholder="비고"></td>
                                                 </tr>
                                             </tbody>
@@ -254,7 +207,7 @@
                                                 <tr>
                                                     <th>시설명</th>
                                                     <th>단가</th>
-                                                    <th>실/인원</th>
+                                                    <th>실</th>
                                                     <th>금액</th>
                                                     <th>비고</th>
                                                 </tr>
@@ -263,73 +216,30 @@
                                                 <tr>
                                                     <td>제1강의실</td>
                                                     <td><input type="text" class="usage-amount" value="100,000" readonly></td>
-                                                    <td><input type="number" class="usage-people single-room" name="lec_no_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
-                                                    <td><input type="text" class="total-amount" name="lec_no_1_1" value="0" readonly></td>
+                                                    <td><input type="number" class="usage-people" name="lec_no_1" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_1t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>제2강의실</td>
                                                     <td><input type="text" class="usage-amount" value="80,000" readonly></td>
-                                                    <td><input type="number" class="usage-people" name="lec_no_2" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1" oninput="validateClassroomCount(this)"></td>
-                                                    <td><input type="text" class="total-amount" name="lec_no_2_1" value="0" readonly></td>
+                                                    <td><input type="number" class="usage-people" name="lec_no_2" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_2t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>제3강의실</td>
                                                     <td><input type="text" class="usage-amount" value="60,000" readonly></td>
-                                                    <td><input type="number" class="usage-people" name="lec_no_3" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1" oninput="validateClassroomCount(this)"></td>
-                                                    <td><input type="text" class="total-amount" name="lec_no_3_1" value="0" readonly></td>
+                                                    <td><input type="number" class="usage-people" name="lec_no_3" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_3t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>토의실</td>
                                                     <td><input type="text" class="usage-amount" value="40,000" readonly></td>
                                                     <td><input type="number" class="usage-people" name="lec_no_4" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
-                                                    <td><input type="text" class="total-amount" name="lec_no_4_1" value="0" readonly></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_4t" placeholder="비고"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane fade" id="classroom2" role="tabpanel">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>시설명</th>
-                                                    <th>단가</th>
-                                                    <th>실/인원</th>
-                                                    <th>금액</th>
-                                                    <th>비고</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>제4강의실</td>
-                                                    <td><input type="text" class="usage-amount" value="100,000" readonly></td>
-                                                    <td><input type="number" class="usage-people" name="lec_no_5" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
-                                                    <td><input type="text" class="total-amount" name="lec_no_5_1" value="0" readonly></td>
-                                                    <td><input type="text" class="usage-note" name="lec_no_5t" placeholder="비고"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>제5강의실</td>
-                                                    <td><input type="text" class="usage-amount" value="80,000" readonly></td>
-                                                    <td><input type="number" class="usage-people" name="lec_no_6" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
-                                                    <td><input type="text" class="total-amount" name="lec_no_6_1" value="0" readonly></td>
-                                                    <td><input type="text" class="usage-note" name="lec_no_6t" placeholder="비고"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>제6강의실</td>
-                                                    <td><input type="text" class="usage-amount" value="60,000" readonly></td>
-                                                    <td><input type="number" class="usage-people" name="lec_no_7" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
-                                                    <td><input type="text" class="total-amount" name="lec_no_7_1" value="0" readonly></td>
-                                                    <td><input type="text" class="usage-note" name="lec_no_7t" placeholder="비고"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>역사관 강의실</td>
-                                                    <td><input type="text" class="usage-amount" value="40,000" readonly></td>
-                                                    <td><input type="number" class="usage-people" name="lec_no_8" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
-                                                    <td><input type="text" class="total-amount" name="lec_no_8_1" value="0" readonly></td>
-                                                    <td><input type="text" class="usage-note" name="lec_no_8t" placeholder="비고"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -341,53 +251,39 @@
                                                 <tr>
                                                     <th>시설명</th>
                                                     <th>단가</th>
-                                                    <th>실/인원</th>
+                                                    <th>실</th>
                                                     <th>금액</th>
                                                     <th>비고</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-												<tr>	
-													<td>
-                                                        <select name="hansik_type" class="form-select" onchange="updateClassroomAmount(this)">
-                                                            <option value="">한식타입</option>
-                                                            <option value="15,000">한식1</option>
-                                                            <option value="18,000">한식2</option>
-                                                            <option value="20,000">한식3</option>
-                                                        </select>
-                                                    </td>
-                                                    <td><input type="text" name="hansik_no" class="usage-amount" value="0" readonly></td>
-                                                    <td><input type="number" name="hansik_count" class="usage-people" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1000" oninput="numberMaxLength(this);"></td>
-                                                    <td><input type="text" class="total-amount" name="hansik_count_1" value="0" readonly></td>
-                                                    <td><input type="text" name="hansik_not" class="usage-note" placeholder="비고"></td>
-												</tr>
-												<!--tr>
+                                                <tr>
                                                     <td>한식</td>
-                                                    <td><input type="number" class="usage-amount" value="15000" readonly></td>
+                                                    <td><input type="text" class="usage-amount" value="15,000" readonly></td>
                                                     <td><input type="number" class="usage-people" name="eat_no_1" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
-                                                    <td><input type="number" class="total-amount" name="eat_no_1_1" value="0" readonly></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="eat_no_1t" placeholder="비고"></td>
-                                                </tr-->
+                                                </tr>
                                                 <tr>
                                                     <td>시설사용료</td>
                                                     <td><input type="text" class="usage-amount" value="50,000" readonly></td>
-                                                    <td><input type="number" class="usage-people single-room" name="eat_no_2" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
-                                                    <td><input type="text" class="total-amount" name="eat_no_2_1" value="0" readonly></td>
+                                                    <td><input type="number" class="usage-people" name="eat_no_2" max='1' value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="eat_no_2t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <select name="classroom_type" class="form-select" onchange="updateClassroomplusAmount(this)">
                                                             <option value="">운동장</option>
-                                                            <option value="2,750,000">199명 이하</option>
-                                                            <option value="3,800,000">299명 이하</option>
-                                                            <option value="13,000">599명 이하</option>
-                                                            <option value="11,000">1000명이하</option>
+                                                            <option value="2750000">199명 이하</option>
+                                                            <option value="3800000">299명 이하</option>
+                                                            <option value="13000">599명 이하</option>
+                                                            <option value="11000">1000명이하</option>
                                                         </select>
                                                     </td>
                                                     <td><input type="text" name="ground_no" class="usage-amount" value="0" readonly></td>
-                                                    <td><input type="number" name="classroom_type_count" class="usage-people" value="" onchange="calculateTotalAmount(this.closest('tr'))" oninput="validateClassroomCount(this)" max="1000"></td>
-                                                    <td><input type="text" class="total-amount" name="classroom_type_count_1" value="0" readonly></td>
+                                                    <td><input type="number" name="classroom_type_count" class="usage-people" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1000" oninput="numberMaxLength(this);"></td>
+                                                    <td><input type="text" class="total-amount" value="0" readonly></td>
                                                     <td><input type="text" name="ground_not" class="usage-note" placeholder="비고"></td>
                                                 </tr>
                                             </tbody>
@@ -405,19 +301,16 @@
                                     <div class="fee-row">
                                         <span class="fee-label">총사용대금</span>
                                         <input type="text" id="grand-total" class="fee-amount" readonly name="total_amount">
-                                        <input type="hidden" id="hidden-grand-total" name="hidden_total_amount">
                                         <span class="fee-currency">원</span>
                                     </div>
                                     <div class="fee-row">
                                         <span class="fee-label">계약금 (10%)</span>
                                         <input type="text" id="contract-amount" class="fee-amount" readonly name="contract_amount">
-                                        <input type="hidden" id="hidden-contract-amount" name="hidden_contract_amount">
                                         <span class="fee-currency">원</span>
                                     </div>
                                     <div class="fee-row">
                                         <span class="fee-label">잔금</span>
                                         <input type="text" id="balance-amount" class="fee-amount" readonly name="balance_amount">
-                                        <input type="hidden" id="hidden-balance-amount" name="hidden_balance_amount">
                                         <span class="fee-currency">원</span>
                                     </div>
                                 </div>
@@ -432,7 +325,7 @@
 
                 <div class="terms-section">
                     <h3>이용약관</h3>
-                    <textarea id="terms" class="terms-box" style="line-height:150%;" readonly>
+                    <textarea id="terms" class="terms-box" readonly>
 1. 개인정보의 수집방법
 	새마을중앙운동연수원 홈페이지에서는 기본적인 회원 서비스 제공을 위한 필수정보와 정보주체 각각의 기호와 필요에 맞는 서비스를 제공하기 위한 
 	선택정보로 구분하여 다음의 정보를 수집하고 있습니다.
@@ -475,7 +368,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="button" id="submitBtn" class="btn btn-primary">요청하기</button>
+                    <button type="button" id="submitBtn" class="btn btn-primary">예약하기</button>
                 </div>
             </form>
         </div>
@@ -508,124 +401,7 @@
                 });
             }
 
-            // 한식 금액 업데이트 함수
-            window.updatehansikAmount = function(select) {
-                const row = select.closest('tr');
-                const amountInput = row.querySelector('.usage-amount');
-                const selectedValue = select.value;
-				var selectedValueresult;
-
-				if(select.value == "13000")
-				{
-					if(Number(document.reservation_form.classroom_type_count.value) > 299 && Number(document.reservation_form.classroom_type_count.value) < 600)
-					{
-						selectedValueresult = select.value * Number(document.reservation_form.classroom_type_count.value); 
-					}else{
-						document.reservation_form.classroom_type_count.value = "0";
-						alert("가능한 인원수는 300 ~ 599명까지 입니다.");
-						select.selectedIndex = 0;
-						return false;
-					}
-				}else if(select.value == "11000")
-				{
-					if(Number(document.reservation_form.classroom_type_count.value) > 599 && Number(document.reservation_form.classroom_type_count.value) <= 1000)
-					{
-						selectedValueresult = select.value * Number(document.reservation_form.classroom_type_count.value); 
-					}else{
-						document.reservation_form.classroom_type_count.value = "0";
-						alert("가능한 인원수는 600 ~ 1000명까지 입니다.");
-						select.selectedIndex = 0;
-						return false;
-					}
-				}else selectedValueresult = selectedValue;
-                
-                if (amountInput) {
-                    amountInput.value = selectedValue || 0;
-                    calculateTotalAmount(row);
-                }
-            };
-
-			// 강의실과 시설사용료 입력 필드 설정
-            const restrictedInputs = [
-                'eat_no_2',      // 시설사용료
-                'lec_no_1',      // 제1강의실
-                'lec_no_2',      // 제2강의실
-                'lec_no_3',      // 제3강의실
-                'lec_no_4',      // 제4강의실
-                'lec_no_5',      // 제5강의실
-                'lec_no_6',      // 제6강의실
-                'lec_no_7',      // 제7강의실
-                'lec_no_8'       // 역사관 강의실
-            ];
-
-            restrictedInputs.forEach(inputName => {
-                const input = document.querySelector(`input[name="${inputName}"]`);
-                if(input) {
-                    input.max = 1;
-                    input.addEventListener('input', function() {
-                        if(Number(this.value) > 1) {
-                            this.value = 1;
-                            alert("강의실과 시설사용료는 실/인원을 1로 설정해주세요.");
-                        }
-                        calculateTotalAmount(this.closest('tr'));
-                    });
-                }
-            });
-
-			// 강의실 인원수 유효성 검사 함수
-            function validateClassroomCount(input) {
-                const select = input.closest('tr').querySelector('select[name="classroom_type"]');
-                const selectedValue = select.value;
-                
-                // 입력값이 숫자가 아니면 0으로 설정
-                if(isNaN(input.value) || input.value === '') {
-                    input.value = 0;
-                }
-                
-                // 강의실과 시설사용료 체크
-                const restrictedInputs = [
-                    'eat_no_2',      // 시설사용료
-                    'lec_no_1',      // 제1강의실
-                    'lec_no_2',      // 제2강의실
-                    'lec_no_3',      // 제3강의실
-                    'lec_no_4',      // 제4강의실
-                    'lec_no_5',      // 제5강의실
-                    'lec_no_6',      // 제6강의실
-                    'lec_no_7',      // 제7강의실
-                    'lec_no_8'       // 역사관 강의실
-                ];
-                
-                if(restrictedInputs.includes(input.name)) {
-                    if(Number(input.value) > 1) {
-                        input.value = 1;
-                        alert("강의실과 시설사용료는 실/인원을 1로 설정해주세요.");
-                    }
-                } else if(selectedValue === "2,750,000" || selectedValue === "3,800,000") {
-                    if(Number(input.value) > 1) {
-                        input.value = 1;
-                        alert("199명/299명 이하는 실/인원을 1로 설정해주세요.");
-                    }
-                } else if(selectedValue === "13,000") {
-                    if(Number(input.value) > 599) {
-                        input.value = 599;
-                        alert("가능한 인원수는 599명까지 입니다.");
-                    }
-                } else if(selectedValue === "11,000") {
-                    if(Number(input.value) > 1000) {
-                        input.value = 1000;
-                        alert("가능한 인원수는 1000명까지 입니다.");
-                    }
-                }
-                
-                // 음수 입력 방지
-                if(Number(input.value) < 0) {
-                    input.value = 0;
-                }
-                
-                calculateTotalAmount(input.closest('tr'));
-            }
-
-			// 강의실 금액 업데이트 함수
+            // 강의실 금액 업데이트 함수
             window.updateClassroomplusAmount = function(select) {
                 const row = select.closest('tr');
                 const amountInput = row.querySelector('.usage-amount');
@@ -633,38 +409,20 @@
                 const selectedValue = select.value;
                 var selectedValueresult;
 
-                if(select.value == "2,750,000") { // 199명 이하
+                if(select.value == "13000") {
                     if(peopleInput) {
-                        peopleInput.max = 1;
-                        if(Number(peopleInput.value) > 1) {
-                            peopleInput.value = 1;
-                            alert("199명 이하는 실/인원을 1로 설정해주세요.");
-                        }
-                    }
-                    selectedValueresult = selectedValue;
-                } else if(select.value == "3,800,000") { // 299명 이하
-                    if(peopleInput) {
-                        peopleInput.max = 1;
-                        if(Number(peopleInput.value) > 1) {
-                            peopleInput.value = 1;
-                            alert("299명 이하는 실/인원을 1로 설정해주세요.");
-                        }
-                    }
-                    selectedValueresult = selectedValue;
-                } else if(select.value == "13,000") { // 599명 이하
-                    if(peopleInput) {
-                        peopleInput.max = 1000;
+                        peopleInput.max = 599;
                         if(Number(peopleInput.value) > 599) {
-                            peopleInput.value = 599;
+                            peopleInput.value = "";
                             alert("가능한 인원수는 599명까지 입니다.");
                         }
                     }
                     selectedValueresult = selectedValue;
-                } else if(select.value == "11,000") { // 1000명 이하
+                } else if(select.value == "11000") {
                     if(peopleInput) {
                         peopleInput.max = 1000;
                         if(Number(peopleInput.value) > 1000) {
-                            peopleInput.value = 1000;
+                            peopleInput.value = "";
                             alert("가능한 인원수는 1000명까지 입니다.");
                         }
                     }
@@ -682,18 +440,6 @@
                 }
             };
 
-			// 강의실 금액 업데이트 함수
-            window.updateClassroomAmount = function(select) {
-                const row = select.closest('tr');
-                const amountInput = row.querySelector('.usage-amount');
-                const selectedValue = select.value;
-                
-                if (amountInput) {
-                    amountInput.value = selectedValue || 0;
-                    calculateTotalAmount(row);
-                }
-            };
-            
             // 사용대금 자동 계산 함수
             window.calculateTotalAmount = function(row) {
                 let totalAmount = 0;
@@ -727,94 +473,19 @@
                 
                 if (grandTotalInput) {
                     grandTotalInput.value = grandTotal.toLocaleString('ko-KR');
-                    // hidden input에 콤마 없는 값 저장
-                    const hiddenGrandTotal = document.getElementById('hidden-grand-total');
-                    if (hiddenGrandTotal) {
-                        hiddenGrandTotal.value = grandTotal;
-                    }
                 }
                 
                 if (contractAmountInput) {
-                    // 계약금 계산 (총액의 10%)
-                    let contractAmount = Math.round(grandTotal * 0.1);
-                    
-                    
+                    const contractAmount = Math.round(grandTotal * 0.1);
                     contractAmountInput.value = contractAmount.toLocaleString('ko-KR');
-                    // hidden input에 콤마 없는 값 저장
-                    const hiddenContractAmount = document.getElementById('hidden-contract-amount');
-                    if (hiddenContractAmount) {
-                        hiddenContractAmount.value = contractAmount;
-                    }
                     
                     // 잔금 자동 계산
                     if (balanceAmountInput) {
                         const balance = grandTotal - contractAmount;
                         balanceAmountInput.value = balance.toLocaleString('ko-KR');
-                        // hidden input에 콤마 없는 값 저장
-                        const hiddenBalanceAmount = document.getElementById('hidden-balance-amount');
-                        if (hiddenBalanceAmount) {
-                            hiddenBalanceAmount.value = balance;
-                        }
                     }
                 }
             };
-
-            // 잔금 계산 함수
-            window.calculateBalance = function() {
-                const grandTotalInput = document.getElementById('grand-total');
-                const contractAmountInput = document.getElementById('contract-amount');
-                const balanceAmountInput = document.getElementById('balance-amount');
-                
-                if (grandTotalInput && contractAmountInput && balanceAmountInput) {
-                    const grandTotal = parseFloat(grandTotalInput.value.replace(/,/g, '')) || 0;
-                    const contractAmount = parseFloat(contractAmountInput.value.replace(/,/g, '')) || 0;
-                    
-                    // 계약금 제한 적용
-                    let validContractAmount = Math.round(grandTotal * 0.1);
-                    validContractAmount = Math.max(1000000, Math.min(5000000, validContractAmount));
-                    validContractAmount = Math.round(validContractAmount / 100000) * 100000;
-                    
-                    const balance = grandTotal - validContractAmount;
-                    
-                    balanceAmountInput.value = balance.toLocaleString('ko-KR');
-                    contractAmountInput.value = validContractAmount.toLocaleString('ko-KR');
-                    
-                    // hidden input에 콤마 없는 값 저장
-                    const hiddenContractAmount = document.getElementById('hidden-contract-amount');
-                    const hiddenBalanceAmount = document.getElementById('hidden-balance-amount');
-                    if (hiddenContractAmount) {
-                        hiddenContractAmount.value = validContractAmount;
-                    }
-                    if (hiddenBalanceAmount) {
-                        hiddenBalanceAmount.value = balance;
-                    }
-                }
-            };
-
-            // 모든 행에 이벤트 리스너 추가
-            const planTableRows = document.querySelectorAll('.plan-table tbody tr');
-            planTableRows.forEach(row => {
-                const peopleInput = row.querySelector('.usage-people');
-                const amountInput = row.querySelector('.usage-amount');
-                const classroomSelect = row.querySelector('.classroom-select');
-
-                if (peopleInput) {
-                    peopleInput.addEventListener('input', function() {
-                        calculateTotalAmount(row);
-                    });
-                }
-
-                if (classroomSelect) {
-                    classroomSelect.addEventListener('change', function() {
-                        updateClassroomAmount(this);
-                    });
-                }
-
-                // 초기 금액 설정
-                if (amountInput && !amountInput.value) {
-                    amountInput.value = '66000';
-                }
-            });
 
             // 계약금 입력 시 숫자만 입력되도록 설정
             const contractAmountInput = document.getElementById('contract-amount');
@@ -910,10 +581,15 @@
                         params.append(key, value);
                     }
 					
-					var msg = "신청하시겠습니까?";
+					var msg = "아래 내용으로 신청하시겠습니까? \n";
+					msg += "기관(업체)명 : "+document.reservation_form.company_name.value+"\n";
+					msg += "사업자등록번호 : "+document.reservation_form.business_number.value+"\n";
+					msg += "담당자 성명 : "+document.reservation_form.tax_manager_name.value+"\n";
+					msg += "담당자 휴대폰 : "+document.reservation_form.tax_manager_phone.value+"\n";
+					msg += "이메일 : "+document.reservation_form.email_id.value+"@"+document.reservation_form.email_domain.value+"\n";
+					msg += "총사용대금 : "+document.reservation_form.total_amount.value+"원";
                     if (confirm(msg)){
-						//document.reservation_form.submit();
-						window.open("reservation_pop.php?" + params.toString(),"confirm_window");
+						document.reservation_form.submit();
 					}
                     //window.location.href = 'reservation_confirm.php?' + params.toString();
                 });
@@ -948,116 +624,59 @@
                     }
                 });
             }
-
-            // 운동장 인원수 입력 필드에 이벤트 리스너 추가
-            const classroomCountInput = document.querySelector('input[name="classroom_type_count"]');
-            if(classroomCountInput) {
-                classroomCountInput.addEventListener('input', function() {
-                    validateClassroomCount(this);
-                });
-            }
-
-            // single-room 클래스를 가진 모든 입력 필드에 이벤트 리스너 추가
-            const singleRoomInputs = document.querySelectorAll('.single-room');
-            singleRoomInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    if(Number(this.value) > 1) {
-                        this.value = 1;
-                        alert("강의실과 시설사용료는 실/인원을 1로 설정해주세요.");
-                    }
-                    calculateTotalAmount(this.closest('tr'));
-                });
-            });
         });
 
-		 function numberMaxLength(e){
+        function numberMaxLength(e) {
+            const max = parseInt(e.max);
+            if(e.value > max) {
+                e.value = max;
+            }
+        }
 
-			if(e.value > 1000){
-				e.value = e.value.slice(0, e.maxLength);
-			}
-		}
+        function is_checked() {    
+            const checkbox = document.getElementById('use_etc');  
+            const is_checked = checkbox.checked;
+            if (is_checked) document.getElementById('use_etc_txt').style.display='block';
+            else document.getElementById('use_etc_txt').style.display='none';
+        }
 
-		function is_checked() {    
-			const checkbox = document.getElementById('use_etc');  
-			const is_checked = checkbox.checked;
-			if (is_checked) document.getElementById('use_etc_txt').style.display='block';
-			else document.getElementById('use_etc_txt').style.display='none';
-		}
-
-		function formatPhoneNumber() {
-		  const business_number_phoneInput = document.getElementById("business_number");
-		  let phoneNumber = business_number_phoneInput.value.replace(/[^0-9]/g, ""); // 입력된 값에서 숫자만 추출합니다.
-		  
-		  if (phoneNumber.length > 5) {
-			phoneNumber = phoneNumber.replace(/(\d{3})(\d{2})(\d{5})/, "$1-$2-$3"); // 전화번호를 형식에 맞게 변환합니다.
-		  }
-		  
-		  business_number_phoneInput.value = phoneNumber; // 변환된 전화번호를 입력란에 설정합니다.
-		}
-		document.getElementById("business_number").addEventListener("focus", formatPhoneNumber);
-
-		function formatPNumber(target) {
-			// 숫자만 추출
-			let number = target.value.replace(/[^0-9]/g, '');
-			
-			// 전화번호 형식에 맞게 하이픈 추가
-			if (number.length > 0) {
-				if (number.length <= 3) {
-					number = number;
-				} else if (number.length <= 7) {
-					number = number.slice(0, 3) + '-' + number.slice(3);
-				} else {
-					number = number.slice(0, 3) + '-' + number.slice(3, 7) + '-' + number.slice(7, 11);
-				}
-			}
-			
-			target.value = number;
-		}
-
-		// 전화번호 입력 필드에 이벤트 리스너 추가
-		document.addEventListener('DOMContentLoaded', function() {
-			const phoneInputs = document.querySelectorAll('input[type="tel"]');
-			phoneInputs.forEach(input => {
-				input.addEventListener('input', function() {
-					formatPNumber(this);
-				});
-				
-				// 포커스가 벗어날 때도 형식 확인
-				input.addEventListener('blur', function() {
-					formatPNumber(this);
-				});
-			});
-		});
-
-		function complete_sender() {    
-			document.reservation_form.submit();
-		}
+        function formatPhoneNumber() {
+            const business_number_phoneInput = document.getElementById("business_number");
+            let phoneNumber = business_number_phoneInput.value.replace(/[^0-9]/g, ""); // 입력된 값에서 숫자만 추출합니다.
+            
+            if (phoneNumber.length > 9) {
+                phoneNumber = phoneNumber.replace(/(\d{3})(\d{2})(\d{5})/, "$1-$2-$3"); // 전화번호를 형식에 맞게 변환합니다.
+            }
+            
+            business_number_phoneInput.value = phoneNumber; // 변환된 전화번호를 입력란에 설정합니다.
+        }
+        document.getElementById("business_number").addEventListener("focus", formatPhoneNumber);
 
         // CSS 스타일 추가
         const style = document.createElement('style');
         style.textContent = `
-    .input-error {
-        border: 2px solid #dc3545 !important;
-        background-color: #fff8f8 !important;
-    }
-    .input-error:focus {
-        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
-    }
-    .checkbox-group {
-        position: relative;
-        display: inline-block;
-    }
-    .agree-message {
-        display: none;
-        color: #dc3545;
-        font-size: 14px;
-        margin-left: 10px;
-    }
-    .checkbox-group input[type="checkbox"]:not(:checked) ~ .agree-message {
-        display: inline-block;
-    }
-`;
-document.head.appendChild(style);
+            .input-error {
+                border: 2px solid #dc3545 !important;
+                background-color: #fff8f8 !important;
+            }
+            .input-error:focus {
+                box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+            }
+            .checkbox-group {
+                position: relative;
+                display: inline-block;
+            }
+            .agree-message {
+                display: none;
+                color: #dc3545;
+                font-size: 14px;
+                margin-left: 10px;
+            }
+            .checkbox-group input[type="checkbox"]:not(:checked) ~ .agree-message {
+                display: inline-block;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
-</html>
+</html> 
