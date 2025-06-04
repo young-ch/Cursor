@@ -552,4 +552,26 @@ select.email-domain {
     .form-table th {
         padding-bottom: 4px;
     }
+    .simple-button {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 12px 24px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .simple-button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+    
+    .simple-button:active {
+        background-color: #004085;
+        transform: translateY(0);
+    }
 } 

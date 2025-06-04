@@ -11,10 +11,50 @@ $stmt = $db->prepare($query);
 $stmt->execute();
 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
+   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<style>
+        /* 기본 화면 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        /* 프린트 스타일 */
+        @media print {
+            /* 폼 크기 조정 */
+            form {
+                width: 90%;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* 테이블 크기 조정 */
+            table {
+                width: 100%;
+                border: 1px solid black;
+            }
+
+            /* 페이지 여백 조정 */
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 6px;
+            }
+
+            /* 페이지 나누기 */
+            .page-break {
+                page-break-before: always;
+            }
+
+            /* 헤더/푸터 숨기기 */
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>예약 목록</title>
@@ -33,6 +73,9 @@ $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <i class="fas fa-plus"></i>
                 새 예약하기
             </a>
+        </div>
+        <div class="no-print">
+            <button onclick="window.print()">프린트</button>
         </div>
 
         <div class="table-responsive">

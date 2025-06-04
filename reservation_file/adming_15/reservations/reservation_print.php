@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온라인 예약</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link href="/reservations/styles.css" rel="stylesheet">
+
+	<style>
+	body {width:100%; padding:0.5rem; box-sizing:border-box;}
+	#use_etc_txt {display:none;}
+	.reservation-header {padding:0.5rem 0; margin-bottom:0.5rem}
+	.reservation-header h1 {font-size:1.5rem; margin-bottom:0;}
+	.form-table {width:100%; margin-bottom:0; border-top:1px solid #e5e7eb; border-left:1px solid #e5e7eb}
+	.form-table th, .form-table td {padding:0.6rem 1rem; border-right:1px solid #e5e7eb; border-bottom:1px solid #e5e7eb}
+	.form-table th {width:17%; padding:0.6rem;}
+	.required {margin-left:0}
+	.tax-manager-group {flex-direction:row;}
+	.document-checkboxes {padding:0;}
+	table.table {width:100%; margin-bottom:0; border-bottom:1px solid #e5e7eb}
+	table.table th, table.table td {padding:0.5rem 1rem;}
+	.fee-info {margin-top:0;}
+	</style>
+	<script>
+		function printPage(){
+			window.print();
+		}		
+	</script>
+</head>
+<body onload="window.print();">
+
+
+        <div class="reservation-header">
+            <h1>견적서</h1>
+           <!-- <div class="reservation-header-image">
+                <img src="/reservations/images/saemaul.png" alt="예약 이미지" >
+            </div> -->
+        </div>
+
+
+            <form name="reservation_form" action="reservation_complete.php" method="POST" enctype="multipart/form-data">
+               
+                <table class="form-table">
+                    <tr>
+                        <th>기관(업체)명 <span class="required">*</span></th>
+                        <td><?=$_REQUEST['company_name']?></td>
+                        <th>대표자 <span class="required">*</span></th>
+                        <td><?=$_REQUEST['representative']?></td>
+                    </tr>
+                    <tr>
+                        <th>전화 <span class="required">*</span></th>
+                        <td><?=$_REQUEST['phone']?></td>
+                        <th>주소 <span class="required">*</span></th>
+                        <td><?=$_REQUEST['address']?></td>
+                    </tr>
+                    <tr>    
+                        <th>증빙종류</th>
+                        <td colspan="3">
+                            <div class="document-checkboxes">
+							<?
+								if($_REQUEST['doc_tax_invoice'] == "1") echo "세금계산서";
+								else if($_REQUEST['doc_tax_invoice'] == "2") echo "카드 *세금계산서 발행불가";
+								else if($_REQUEST['doc_tax_invoice'] == "3") echo "현금영수증";
+								else echo "해당없음";
+
+							?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사업자등록번호 <span class="required">*</span></th>
+                        <td colspan="2"><?=$_REQUEST['business_number']?></td>
+                        <td></td>
+                    </tr>
+                    <tr>    
+                        <th>사용범위</th>
+                        <td colspan="3">
+                            <div class="document-checkboxes">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="usage_accommodation" name="usage_accommodation" value="1" <?if($_REQUEST['usage_accommodation'] == "1") echo "checked"; ?>>
+                                    <label for="use_accommodation">숙소</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="use_hall" name="usage_hall" value="1" <?if($_REQUEST['usage_hall'] == "1") echo "checked"; ?>>
+                                    <label for="use_hall">강당/강의실</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="use_facility" name="usage_facility" value="1" <?if($_REQUEST['usage_facility'] == "1") echo "checked"; ?>>
+                                    <label for="use_facility">부대시설</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="use_etc" name="usage_etc" onclick="is_checked()"  value="1" <?if($_REQUEST['usage_etc'] == "1") echo "checked"; ?>>
+                                    <label for="use_etc">협의사항</label>
+									<?=$_REQUEST['use_etc_txt']?>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>연락할 담당자 <span class="required">*</span></th>
+                        <td colspan="2">
+                            <div class="tax-manager-group">
+                                <div class="name-phone-row">
+                                    <?=$_REQUEST['tax_manager_name']?>
+                                    <?=$_REQUEST['tax_manager_phone']?>
+                                </div>
+						</td><td>
+                                <div class="email-row">
+                                        <?=$_REQUEST['email_id']?>@<?=$_REQUEST['email_domain']?>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사용목적</th>
+                        <td colspan="3"> <?=$_REQUEST['purpose']?></td>
+                    </tr>
+                    <tr>
+                        <th>사용인원</th>
+                        <td>
+                                 <?=$_REQUEST['total_people']?> 명
+                        </td>
+                        <th>예약 기간</th>
+                        <td>
+                                <?=$_REQUEST['start_date']?> ~ <?=$_REQUEST['end_date']?>
+                        </td>
+                    </tr>
+					<tr>
+                        <th>사용계획</th>
+                        <td colspan="3">
+                            <div class="usage-plan">
+                                <div class="tab-content" id="facilityTabContent">
+                                    <!-- 숙소 탭 -->
+                                    <div class="tab-pane fade show active" id="accommodation" role="tabpanel">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:50%;">시설명</th>
+                                                    <th style="width:15%;">단가</th>
+                                                    <th style="width:15%;">실/인원</th>
+                                                    <th style="width:15%;">금액</th>
+                                                    <th style="width:7%;">비고</th>
+                                                </tr>
+                                            </thead>
+                                           <tbody>
+                                                <? if($_REQUEST['room_no_1_1']){?>
+                                                <tr>
+                                                    <td>2인실(69호실)</td>
+                                                    <td><?=$_REQUEST['room_no_1']?></td>
+                                                    <td><?=$_REQUEST['room_no_1_1']?></td>
+                                                    <td><?=$_REQUEST['room_no_1_2']?></td>
+                                                    <td><?=$_REQUEST['room_no_1t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['room_no_2_1']){?>
+                                                <tr>
+                                                    <td>3인실(6호실)</td>
+                                                    <td><?=$_REQUEST['room_no_2']?></td>
+                                                    <td><?=$_REQUEST['room_no_2_1']?></td>
+                                                    <td><?=$_REQUEST['room_no_2_2']?></td>
+                                                    <td><?=$_REQUEST['room_no_2t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['room_no_3_1']){?>
+                                                <tr>
+                                                    <td>4인실(59호실)</td>
+                                                    <td><?=$_REQUEST['room_no_3']?></td>
+                                                    <td><?=$_REQUEST['room_no_3_1']?></td>
+                                                    <td><?=$_REQUEST['room_no_3_2']?></td>
+                                                    <td><?=$_REQUEST['room_no_3t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['room_no_4_1']){?>
+                                                <tr>
+                                                    <td>5인실(1호실)</td>
+                                                    <td><?=$_REQUEST['room_no_4']?></td>
+                                                    <td><?=$_REQUEST['room_no_4_1']?></td>
+                                                    <td><?=$_REQUEST['room_no_4_2']?></td>
+                                                    <td><?=$_REQUEST['room_no_4t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['room_no_5_1']){?>
+												<tr>
+                                                    <td>8인실(8호실)</td>
+                                                    <td><?=$_REQUEST['room_no_5']?></td>
+													<td><?=$_REQUEST['room_no_5_1']?></td>
+                                                    <td><?=$_REQUEST['room_no_5_2']?></td>
+                                                    <td><?=$_REQUEST['room_no_5t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_1_1']){?>
+                                                <tr>
+                                                    <td>강당(470석)</td>
+                                                    <td><?=$_REQUEST['lec_no_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_1_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_1_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_1t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_2_1']){?>
+                                                <tr>
+                                                    <td>제1강의실(84석)</td>
+                                                    <td><?=$_REQUEST['lec_no_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_2_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_2_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_2t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_3_1']){?>
+                                                <tr>
+                                                    <td>제2강의실(120석)</td>
+                                                    <td><?=$_REQUEST['lec_no_3']?></td>
+                                                    <td><?=$_REQUEST['lec_no_3_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_3_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_3t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_4_1']){?>
+												<tr>
+                                                    <td>제3강의실(208석)</td>
+                                                    <td><?=$_REQUEST['lec_no_4']?></td>
+                                                    <td><?=$_REQUEST['lec_no_4_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_4_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_4t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_5_1']){?>
+												<tr>
+                                                    <td>토의실(30석)</td>
+                                                   <td><?=$_REQUEST['lec_no_5']?></td>
+                                                    <td><?=$_REQUEST['lec_no_5_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_5_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_5t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_6_1']){?>
+												<tr>
+                                                    <td>제4강의실(176석)</td>
+                                                    <td><?=$_REQUEST['lec_no_6']?></td>
+                                                    <td><?=$_REQUEST['lec_no_6_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_6_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_6t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_7_1']){?>
+												<tr>
+                                                    <td>제5강의실(24석)</td>
+                                                    <td><?=$_REQUEST['lec_no_7']?></td>
+                                                    <td><?=$_REQUEST['lec_no_7_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_7_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_7t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_8_1']){?>
+												<tr>
+                                                    <td>제6강의실(20석)</td>
+                                                    <td><?=$_REQUEST['lec_no_8']?></td>
+                                                    <td><?=$_REQUEST['lec_no_8_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_8_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_8t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['lec_no_9_1']){?>
+												<tr>
+                                                    <td>역사관 강의실(54석)</td>
+                                                    <td><?=$_REQUEST['lec_no_9']?></td>
+                                                    <td><?=$_REQUEST['lec_no_9_1']?></td>
+                                                    <td><?=$_REQUEST['lec_no_9_2']?></td>
+                                                    <td><?=$_REQUEST['lec_no_9t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['hansik_type']){?>
+												<tr>
+                                                    <td>부대시설 - 
+													<?
+														if($_REQUEST['hansik_type'] == "9,000") echo "한식1";
+														else if($_REQUEST['hansik_type'] == "12,000") echo "한식2";
+														else if($_REQUEST['hansik_type'] == "15,000") echo "한식3";
+														else echo "";
+
+													?>
+                                                    </td>
+                                                    <td><?=$_REQUEST['hansik_no']?></td>
+                                                    <td><?=$_REQUEST['hansik_count']?></td>
+                                                    <td><?=$_REQUEST['hansik_count_1']?></td>
+                                                    <td><?=$_REQUEST['hansik_not']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['eat_no_1_1']){?>
+                                                <tr>
+                                                    <td>부대시설 - 시설사용료</td>
+                                                    <td><?=$_REQUEST['eat_no_1']?></td>
+													<td><?=$_REQUEST['eat_no_1_1']?></td>
+                                                    <td><?=$_REQUEST['eat_no_1_2']?></td>
+                                                    <td><?=$_REQUEST['eat_no_1t']?></td>
+                                                </tr>
+											<? } ?>
+											<? if($_REQUEST['classroom_type']){?>
+                                                <tr>
+                                                    <td>부대시설 - 
+													<?
+														if($_REQUEST['classroom_type'] == "2,750,000") echo "199명 이하";
+														else if($_REQUEST['doc_tax_invoice'] == "3,800,000") echo "299명 이하";
+														else if($_REQUEST['doc_tax_invoice'] == "1,3000") echo "599명 이하";
+														else if($_REQUEST['doc_tax_invoice'] == "1,1000") echo "1000명 이하";
+														else echo "";
+
+													?>
+                                                    </td>
+                                                    <td><?=$_REQUEST['ground_no']?></td>
+                                                    <td><?=$_REQUEST['classroom_type_count']?></td>
+                                                    <td><?=$_REQUEST['classroom_type_count_1']?></td>
+                                                    <td><?=$_REQUEST['ground_not']?></td>
+                                                </tr>
+											<? } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사용료</th>
+                        <td colspan="3">
+                            <div class="fee-info">
+                                <div class="fee-calculator">
+                                    <div class="fee-row">
+                                        <span class="fee-label">총사용대금</span>
+										<?=number_format($_REQUEST['total_amount'])?>
+                                        <span class="fee-currency">원(부가세별도)</span>
+                                    </div>
+                                    <div class="fee-row">
+                                        <span class="fee-label">계약금 (10%)</span>
+										<?=$_REQUEST['contract_amount']?>
+                                        <span class="fee-currency">원</span>
+                                    </div>
+                                    <div class="fee-row">
+                                        <span class="fee-label">잔금</span>
+										<?=$_REQUEST['balance_amount']?>
+                                        <span class="fee-currency">원</span>
+                                    </div>
+                                </div>
+                                <p class="fee-note">이용대금 송금 구좌 : 우리은행 1005-303-298161 새마을연수원(카드결재 가능)</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+   
+</body>
+</html> 

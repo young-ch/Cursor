@@ -1,0 +1,1115 @@
+/* Modern Reservation System Styles */
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #34495e;
+    --secondary-color: #4b5563;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    --background-color: #f8fafc;
+    --card-background: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4b5563;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Minimal Header */
+.reservation-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.reservation-header h1 {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.reservation-header-image {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.reservation-header-image img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+    .reservation-header-image {
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 768px) {
+    .reservation-header-image {
+        max-width: 600px;
+    }
+    
+    .form-table input,
+    .form-table select,
+    .form-table textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .input-group,
+    .email-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .input-group input,
+    .input-group select,
+    .email-group input,
+    .email-group select {
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .reservation-header-image {
+        max-width: 100%;
+        padding: 0.5rem;
+    }
+}
+
+/* Banner: image left, text right */
+.reservation-header-banner {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    min-height: 180px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: none;
+    margin-bottom: 2.5rem;
+}
+
+.reservation-header-banner-image {
+    flex: 0 0 320px;
+    min-width: 220px;
+    max-width: 400px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.reservation-header-banner-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.reservation-header-banner-info {
+    flex: 1 1 0;
+    background: #393939;
+    color: #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 2.5rem 3rem;
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+.reservation-header-banner-info .banner-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #bfc9d1;
+    margin-bottom: 0.5rem;
+}
+
+.reservation-header-banner-info .banner-contact {
+    font-size: 2.1rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .reservation-header-banner {
+        flex-direction: column;
+        min-height: unset;
+    }
+    .reservation-header-banner-image {
+        max-width: 100%;
+        min-width: 100%;
+        height: 180px;
+    }
+    .reservation-header-banner-info {
+        align-items: flex-start;
+        text-align: left;
+        padding: 1.2rem 1rem;
+    }
+    .reservation-header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+}
+
+/* Button Styles */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #374151;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Form Styles */
+.reservation-form {
+    background: var(--card-background);
+    padding: 2.5rem;
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    border-radius: var(--radius-md);
+}
+
+/* Table Styles */
+.reservation-table {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
+    font-size: 0.95rem;
+}
+
+.table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+}
+
+.table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Form Table Styles */
+.form-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+.form-table th,
+.form-table td {
+    padding: 1.2rem;
+    border: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.form-table th {
+    background: var(--background-color);
+    font-weight: 600;
+    color: var(--text-primary);
+    width: 15%;
+    text-align: left;
+    padding-left: 1.5rem;
+    white-space: nowrap;
+}
+
+.form-table td {
+    width: 35%;
+    padding-right: 1.5rem;
+}
+
+.form-table tr:last-child th,
+.form-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* 구분선 스타일 */
+.form-table .divider-row {
+    height: 0;
+    padding: 0;
+}
+
+.form-table .divider-row td {
+    border-top: 0.1px solid var(--border-color);
+    padding: 0;
+    height: 0;
+}
+
+/* Unified Input Styles */
+.form-control,
+.form-select,
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="file"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background-color: white;
+    color: var(--text-primary);
+    box-sizing: border-box;
+}
+
+.form-control:focus,
+.form-select:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Form Table Input Fields */
+.form-table input[type="text"],
+.form-table input[type="tel"],
+.form-table input[type="email"],
+.form-table input[type="number"],
+.form-table input[type="date"] {
+    max-width: 300px;
+}
+
+/* Input Group Styles */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.input-group input,
+.input-group select {
+    flex: 1;
+    min-width: 120px;
+    max-width: 200px;
+}
+
+/* Email Group Styles */
+.email-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.email-group input {
+    flex: 1;
+    min-width: 120px;
+    max-width: 150px;
+}
+
+.email-group span {
+    color: var(--text-secondary);
+    margin: 0 0.25rem;
+    font-weight: 500;
+}
+
+.email-group select {
+    min-width: 120px;
+    max-width: 150px;
+}
+
+/* Terms Section */
+.terms-section {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    margin: 2rem 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.terms-section h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.terms-box {
+    width: 100%;
+    height: 150px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--background-color);
+    margin-bottom: 1rem;
+    resize: none;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: var(--primary-color);
+}
+
+/* Form Actions */
+.form-actions {
+    margin-top: 2rem;
+    text-align: right;
+}
+
+/* Alert Styles */
+.alert {
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.alert-success {
+    background-color: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.alert-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* Modal Styles */
+.modal-content {
+    background: var(--card-background);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background: #f8f9fa;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    background: #f8f9fa;
+}
+
+/* Required Field */
+.required {
+    color: #dc2626;
+    margin-left: 0.25rem;
+}
+
+/* Animation */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom Form Elements */
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+.form-select-fix {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-input:checked::after {
+    content: '';
+    position: absolute;
+    left: 0.4rem;
+    top: 0.2rem;
+    width: 0.4rem;
+    height: 0.7rem;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: -0.75rem 0 0 -0.75rem;
+    border: 2px solid var(--primary-color);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 리스트 테이블 심플 스타일 */
+.simple-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-bottom: 2rem;
+}
+.simple-table th, .simple-table td {
+    border: 1px solid #f0f0f0;
+    padding: 0.9rem 0.7rem;
+    font-size: 1rem;
+    text-align: left;
+}
+.simple-table th {
+    background: #fafbfc;
+    font-weight: 600;
+    color: #222;
+}
+.simple-table tr:hover {
+    background: #f6f8fa;
+}
+
+/* 체크박스 심플 스타일 */
+input[type="checkbox"] {
+    accent-color: #222;
+    width: 1.1em;
+    height: 1.1em;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .form-table th, .form-table td, .simple-table th, .simple-table td {
+        padding: 0.6rem 0.3rem;
+        font-size: 0.97rem;
+    }
+    .form-table th {
+        width: 100px;
+    }
+}
+
+.room-reservation-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    background: var(--background-color);
+    border-radius: var(--radius-md);
+    padding: 1.2rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color);
+    width: 100%;
+}
+.room-reservation-box label {
+    margin-bottom: 0.2rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    min-width: 80px;
+}
+.room-reservation-box .form-control,
+.room-reservation-box .form-select {
+    min-width: 120px;
+    max-width: 180px;
+}
+.room-reservation-box span {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0 0.5rem;
+}
+.form-error {
+    color: #e74c3c;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+.input-error {
+    border-color: #e74c3c !important;
+    background: #fff6f6 !important;
+}
+
+/* Half-width input fields for key reservation fields */
+.form-table input[name="name"],
+.form-table input[name="company"],
+.form-table input[name="phone"],
+.form-table input[name="course_name"],
+.form-table input[name="total_people"],
+.form-table input[name="student_people"],
+.form-table input[name="start_date"],
+.form-table input[name="end_date"],
+.form-table input[name="staff_people"] {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Contract Terms Styles */
+.contract-terms {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    margin: 2rem 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.contract-terms h4 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.contract-terms ol {
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.contract-terms li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.contact-info {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Fee Info Styles */
+.fee-info {
+    background: var(--background-color);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-top: 0.5rem;
+}
+
+.fee-info p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contract-terms {
+        padding: 1.5rem;
+    }
+
+    .contract-terms h4 {
+        font-size: 1.1rem;
+    }
+
+    .contract-terms li {
+        font-size: 0.95rem;
+    }
+}
+
+/* Tax Manager Group Styles */
+.tax-manager-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.tax-manager-group .name-phone-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.tax-manager-group .name-phone-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+.tax-manager-group .email-row {
+    width: 100%;
+}
+
+.tax-manager-group .email-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.tax-manager-group .email-group input[name="email_id"] {
+    width: 150px;
+}
+
+.tax-manager-group .email-group input[name="email_domain"] {
+    width: 200px;
+}
+
+.tax-manager-group .email-group select {
+    width: 150px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tax-manager-group .name-phone-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tax-manager-group .email-group {
+        flex-wrap: wrap;
+    }
+    
+    .tax-manager-group .email-group input,
+    .tax-manager-group .email-group select {
+        width: 100% !important;
+    }
+}
+
+/* Document Checkboxes Styles */
+.document-checkboxes {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.5rem 0;
+    flex-wrap: nowrap;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--primary-color);
+    margin: 0;
+    cursor: pointer;
+}
+
+.checkbox-item label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+}
+
+/* Responsive Design for Checkboxes */
+@media (max-width: 768px) {
+    .document-checkboxes {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .checkbox-item {
+        min-width: 120px;
+    }
+}
+
+/* Usage Plan Table Styles */
+.usage-plan-table {
+    width: 100%;
+    margin: 1rem 0;
+    background: white;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.plan-table th,
+.plan-table td {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.plan-table th {
+    background: var(--background-color);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.plan-table td:first-child {
+    background: var(--background-color);
+    font-weight: 500;
+    text-align: center;
+    width: 100px;
+}
+
+.plan-table input[type="number"],
+.plan-table input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    text-align: right;
+}
+
+.plan-table input[type="number"]:read-only,
+.plan-table input[type="text"]:read-only {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+
+/* Classroom Select Styles */
+.classroom-select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    background-color: white;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8.825L1.175 4 2.05 3.125 6 7.075 9.95 3.125 10.825 4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+}
+
+.classroom-select:hover {
+    border-color: var(--primary-color);
+}
+
+.classroom-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* Total Amount Styles */
+.total-amount {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Responsive Design for Usage Plan Table */
+@media (max-width: 768px) {
+    .usage-plan-table {
+        overflow-x: auto;
+    }
+
+    .plan-table {
+        min-width: 800px;
+    }
+
+    .plan-table th,
+    .plan-table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .plan-table input[type="number"],
+    .plan-table input[type="text"],
+    .classroom-select {
+        padding: 0.4rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Usage People Input Styles */
+.usage-people {
+    width: 80px !important;
+    text-align: center !important;
+    padding: 0.5rem !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 0.95rem !important;
+    background-color: white !important;
+    transition: all 0.2s ease !important;
+}
+
+.usage-people:hover {
+    border-color: var(--primary-color) !important;
+}
+
+.usage-people:focus {
+    outline: none !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Hide number input spinners */
+.usage-people::-webkit-inner-spin-button,
+.usage-people::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.usage-people[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Usage Amount and Total Amount Styles */
+.usage-amount,
+.total-amount {
+    width: 120px !important;
+    text-align: right !important;
+    padding-right: 1rem !important;
+    font-weight: 500 !important;
+}
+
+.total-amount {
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+}
+
+/* Usage Note Styles */
+.usage-note {
+    width: 150px !important;
+    text-align: left !important;
+}
+
+/* Responsive Design for Input Fields */
+@media (max-width: 768px) {
+    .usage-people {
+        width: 60px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .usage-amount,
+    .total-amount {
+        width: 100px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .usage-note {
+        width: 120px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Fee Calculator Styles */
+.fee-calculator {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    max-width: 50%;
+}
+
+.fee-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.fee-row:last-child {
+    margin-bottom: 0;
+}
+
+.fee-label {
+    width: 100px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.fee-amount {
+    width: 150px;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    text-align: right;
+    background-color: white;
+}
+
+.fee-amount:read-only {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+
+.fee-currency {
+    color: var(--text-secondary);
+    font-weight: 500;
+    min-width: 30px;
+}
+
+.fee-note {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Responsive Design for Fee Calculator */
+@media (max-width: 768px) {
+    .fee-calculator {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .fee-row {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .fee-label {
+        width: 100px;
+        font-size: 0.95rem;
+    }
+
+    .fee-amount {
+        width: 120px;
+        font-size: 0.95rem;
+    }
+} 

@@ -1238,6 +1238,9 @@
                     온라인 예약하기
                 </a>
             </div>
+            <div class="container">
+                <a href="#" class="simple-button">시설 사용 신청</a>
+            </div>
         </main>
     </div>
 
