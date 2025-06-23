@@ -7,19 +7,151 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link href="/reservations/styles.css" rel="stylesheet"> 
-    
-	<style>
-	#use_etc_txt {display:none;}
-	</style>
+
 </head>
 <body>
     <div class="container">
         <div class="reservation-header">
-            <h1>온라인 예약 신청</h1>
-           <!-- <div class="reservation-header-image">
-                <img src="/reservations/images/saemaul.png" alt="예약 이미지" >
-            </div> -->
+            <div class="banner-container">
+                <div id="reservationCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#reservationCarousel" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#reservationCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#reservationCarousel" data-bs-slide-to="2"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/reservations/images/sua.jpg" alt="예약 배너 1" class="reservation-banner">
+                            <div class="banner-overlay">
+                                <h1>온라인 예약 신청</h1>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/reservations/images/sua.jpg" alt="예약 배너 2" class="reservation-banner">
+                            <div class="banner-overlay">
+                                <h1>온라인 예약 신청</h1>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/reservations/images/sua.jpg" alt="예약 배너 3" class="reservation-banner">
+                            <div class="banner-overlay">
+                                <h1>온라인 예약 신청</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#reservationCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#reservationCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
         </div>
+		<style>
+            	#use_etc_txt {display:none;}
+
+            /* 시설 미리보기 스타일 */
+            .facility-preview {
+                position: relative;
+                cursor: pointer;
+            }
+
+            .facility-preview:hover::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 100%;
+                transform: translateY(-50%);
+                width: 150px;
+                height: 100px;
+                background-size: cover;
+                background-position: center;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                z-index: 1000;
+                pointer-events: none;
+                margin-right: 20px;
+            }
+
+            .facility-preview[data-image]::after {
+                background-image: var(--preview-image);
+            }
+
+            .banner-container {
+                position: relative;
+                width: 100%;
+                height: 250px;
+               
+                overflow: hidden;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .carousel {
+                height: 100%;
+            }
+
+            .carousel-inner {
+                height: 100%;
+            }
+
+            .carousel-item {
+                height: 100%;
+            }
+
+            .reservation-banner {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .banner-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .banner-overlay h1 {
+                color: white;
+                font-size: 3rem;
+                font-weight: bold;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                margin: 0;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 5%;
+                opacity: 0.8;
+            }
+
+            .carousel-control-prev:hover,
+            .carousel-control-next:hover {
+                opacity: 1;
+            }
+
+            .carousel-indicators {
+                margin-bottom: 1rem;
+            }
+
+            .carousel-indicators button {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin: 0 5px;
+            }
+        </style>
 
 <style>
 #doc_hall_txt {display:none;line-height:150%;color:red;margin:0;padding:0;}
@@ -65,7 +197,7 @@
 							document.getElementById('address').value = fullAddr;
 			
 							// 커서를 상세주소 필드로 이동한다.
-							document.getElementById('address').focus();
+							document.getElementById('address_detail').focus();
 						}
 					}).open();
 				}
@@ -81,9 +213,11 @@
                     </tr>
                     <tr>
                         <th>전화 <span class="required">*</span></th>
-                        <td><input type="tel" name="phone" id="phone" required placeholder="000-0000-0000" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" onkeyup="formatPNumber(this)"></td>
+                        <td><input type="tel" name="phone" id="phone" required maxlength="11" placeholder="'-' 없이 번호 입력"></td>
                         <th>주소 <span class="required">*</span></th>
-                        <td><input type="text" id="address" name="address" required onclick="javascript:zipsearch();"></td>
+                        <td><input type="text" id="address" name="address" required onclick="javascript:zipsearch();">
+						<input type="text" id="address_detail" name="address_detail" placeholder="상세주소를 입력하세요"> 
+						</td>
                     </tr>
                     <tr>    
                         <th>증빙종류</th>
@@ -144,7 +278,7 @@
                             <div class="tax-manager-group">
                                 <div class="name-phone-row">
                                     <input type="text" name="tax_manager_name" placeholder="성명" required>
-                                    <input type="tel" name="tax_manager_phone" placeholder="000-0000-0000" required pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" onkeyup="formatPNumber(this)">
+                                    <input type="tel" name="tax_manager_phone" required maxlength="11" placeholder="'-' 없이 번호 입력">							
                                 </div>
                                 <div class="email-row">
                                     <div class="email-group">
@@ -217,35 +351,35 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>2인실(69호실)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/2인실.png">2인실(69호실)</td>
                                                     <td><input type="text" class="usage-amount" value="60,000" name="room_no_1" readonly></td>
                                                     <td><input type="number" class="usage-people" name="room_no_1_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="69"></td>
                                                     <td><input type="text" class="total-amount" name="room_no_1_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="room_no_1t" placeholder="비고"></td>
                                                 </tr>
 												<tr>
-                                                    <td>3인실(6호실)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/3인실.png">3인실(6호실)</td>
                                                     <td><input type="text" class="usage-amount" value="70,000" name="room_no_2" readonly></td>
                                                     <td><input type="number" class="usage-people" name="room_no_2_1" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
                                                     <td><input type="text" class="total-amount" name="room_no_2_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="room_no_2t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>4인실(59호실)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/4인실.png">4인실(59호실)</td>
                                                     <td><input type="text" class="usage-amount" value="90,000" name="room_no_3" readonly></td>
                                                     <td><input type="number" class="usage-people" name="room_no_3_1" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
                                                     <td><input type="text" class="total-amount" name="room_no_3_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="room_no_3t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>5인실(1호실)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/5인실.png">5인실(1호실)</td>
                                                     <td><input type="text" class="usage-amount" value="100,000" name="room_no_4" readonly></td>
                                                     <td><input type="number" class="usage-people single-room" name="room_no_4_1" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
                                                     <td><input type="text" class="total-amount" name="room_no_4_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="room_no_4t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>8인실(8호실)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/8인실.png">8인실(8호실)</td>
                                                     <td><input type="text" class="usage-amount" value="140,000" name="room_no_5" readonly></td>
                                                     <td><input type="number" class="usage-people" name="room_no_5_1" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
                                                     <td><input type="text" class="total-amount" name="room_no_5_2" value="0" readonly></td>
@@ -268,35 +402,35 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>강당(470석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/대강당.png">강당(470석)</td>
                                                     <td><input type="text" class="usage-amount" value="4,500,000" readonly name="lec_no_1"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_1_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_1_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_1t" placeholder="비고"></td>
                                                 </tr>
 												<tr>
-                                                    <td>제1강의실<br>(84석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/sua.jpg">제1강의실<br>(84석)</td>
                                                     <td><input type="text" class="usage-amount" value="770,000" readonly name="lec_no_2"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_2_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_2_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_2t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>제2강의실<br>(120석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/sua.jpg">제2강의실<br>(120석)</td>
                                                     <td><input type="text" class="usage-amount" value="1,100,000" readonly name="lec_no_3"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_3_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1" oninput="validateClassroomCount(this)"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_3_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_3t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>제3강의실<br>(208석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/sua.jpg">제3강의실<br>(208석)</td>
                                                     <td><input type="text" class="usage-amount" value="1,706,000" readonly name="lec_no_4"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_4_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1" oninput="validateClassroomCount(this)"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_4_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_4t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>토의실(30석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/토의실.png">토의실(30석)</td>
                                                     <td><input type="text" class="usage-amount" value="165,000" readonly name="lec_no_5"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_5_1" value="" onchange="calculateTotalAmount(this.closest('tr'))"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_5_2" value="0" readonly></td>
@@ -318,28 +452,28 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>제4강의실<br>(176석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/sua.jpg">제4강의실<br>(176석)</td>
                                                     <td><input type="text" class="usage-amount" value="1,540,000" readonly name="lec_no_6"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_6_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_6_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_6t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>제5강의실(24석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/sua.jpg">제5강의실(24석)</td>
                                                     <td><input type="text" class="usage-amount" value="275,000" readonly name="lec_no_7"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_7_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_7_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_7t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>제6강의실(20석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/sua.jpg">제6강의실(20석)</td>
                                                     <td><input type="text" class="usage-amount" value="220,000" readonly name="lec_no_8"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_8_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_8_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="lec_no_8t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>역사관 강의실<br>(54석)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/sua.jpg">역사관 강의실<br>(54석)</td>
                                                     <td><input type="text" class="usage-amount" value="880,000" readonly name="lec_no_9"></td>
                                                     <td><input type="number" class="usage-people single-room" name="lec_no_9_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
                                                     <td><input type="text" class="total-amount" name="lec_no_9_2" value="0" readonly></td>
@@ -361,8 +495,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-												<tr>	
-													<td>
+                                            <tr>	
+													<td class="facility-preview" data-image="/reservations/images/sua.jpg">
                                                         <select name="hansik_type" class="form-select" onchange="updateClassroomAmount(this)">
                                                             <option value="">한식타입</option>
                                                             <option value="9,000">한식1</option>
@@ -384,14 +518,14 @@
                                                     <td><input type="text" class="usage-note" name="eat_no_1t" placeholder="비고"></td>
                                                 </tr-->
                                                 <tr>
-                                                    <td>시설사용료<br>(출장뷔페 사용시)</td>
+                                                    <td class="facility-preview" data-image="/reservations/images/식당.png">시설사용료<br>(출장뷔페 사용시)</td>
                                                     <td><input type="text" class="usage-amount" value="300,000" readonly name="eat_no_1"></td>
                                                     <td><input type="number" class="usage-people single-room" name="eat_no_1_1" value="" onchange="calculateTotalAmount(this.closest('tr'))" max="1"></td>
                                                     <td><input type="text" class="total-amount" name="eat_no_1_2" value="0" readonly></td>
                                                     <td><input type="text" class="usage-note" name="eat_no_1t" placeholder="비고"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
+                                                    <td class="facility-preview" data-image="/reservations/images/운동장.png">
                                                         <select name="classroom_type" class="form-select" onchange="updateClassroomplusAmount(this)">
                                                             <option value="">운동장</option>
                                                             <option value="2,750,000">199명 이하</option>
@@ -436,7 +570,7 @@
                                         <span class="fee-currency">원</span>
                                     </div>
                                 </div>
-                                <p class="fee-note">이용대금 송금 구좌 : 우리은행 1005-303-298161 새마을연수원(카드결재 가능)</p>
+                                <p class="fee-note">이용대금 송금 계좌 : 우리은행 1005-303-298161 새마을연수원(카드결재 가능)</p>
                             </div>
                         </td>
                         <td>
@@ -986,6 +1120,18 @@
                     calculateTotalAmount(this.closest('tr'));
                 });
             });
+
+            // 시설 미리보기 기능
+            const facilityCells = document.querySelectorAll('.facility-preview');
+            
+            facilityCells.forEach(cell => {
+                cell.addEventListener('mouseenter', function() {
+                    const image = this.getAttribute('data-image');
+                    if (image) {
+                        this.style.setProperty('--preview-image', `url(${image})`);
+                    }
+                });
+            });
         });
 
 		 function numberMaxLength(e){
@@ -1012,6 +1158,7 @@
 		  
 		  business_number_phoneInput.value = phoneNumber; // 변환된 전화번호를 입력란에 설정합니다.
 		}
+
 		document.getElementById("business_number").addEventListener("focus", formatPhoneNumber);
 
 		function formatPNumber(target) {
@@ -1037,12 +1184,12 @@
 			const phoneInputs = document.querySelectorAll('input[type="tel"]');
 			phoneInputs.forEach(input => {
 				input.addEventListener('input', function() {
-					formatPNumber(this);
+					//formatPNumber(this);
 				});
 				
 				// 포커스가 벗어날 때도 형식 확인
 				input.addEventListener('blur', function() {
-					formatPNumber(this);
+					//formatPNumber(this);
 				});
 			});
 		});
